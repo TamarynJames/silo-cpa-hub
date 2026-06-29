@@ -1,0 +1,2931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silo Group | CPA Hub</title>
+<style>
+  :root {
+    --navy-900: #0a1628;
+    --navy-800: #0d1f3c;
+    --navy-700: #132847;
+    --navy-600: #1a3557;
+    --navy-500: #1e3a5f;
+    --navy-400: #2d5080;
+    --navy-300: #3d6a9e;
+    --navy-200: #6b92bc;
+    --navy-100: #b8cfe4;
+    --navy-50:  #e8f0f8;
+    --gold:     #c9a84c;
+    --gold-light: #e8c96a;
+    --white:    #ffffff;
+    --grey-100: #f4f7fa;
+    --grey-200: #e2e8f0;
+    --grey-400: #94a3b8;
+    --grey-600: #475569;
+    --success:  #22c55e;
+    --warning:  #f59e0b;
+    --danger:   #ef4444;
+    --radius:   10px;
+    --shadow:   0 4px 24px rgba(13,31,60,0.13);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--grey-100);
+    color: var(--navy-800);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy-800);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 64px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--navy-800);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .logo-text .brand { font-size: 15px; font-weight: 700; letter-spacing: 0.04em; }
+  .logo-text .subtitle { font-size: 11px; color: var(--navy-200); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .header-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy-700);
+    border: 1px solid var(--navy-500);
+    border-radius: 8px;
+    padding: 8px 14px;
+    width: 300px;
+    transition: all 0.2s;
+  }
+
+  .header-search:focus-within {
+    border-color: var(--gold);
+    background: var(--navy-600);
+  }
+
+  .header-search svg { opacity: 0.5; flex-shrink: 0; }
+
+  .header-search input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--white);
+    font-size: 13.5px;
+    width: 100%;
+  }
+
+  .header-search input::placeholder { color: var(--navy-200); }
+
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border-radius: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.18s;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy-800);
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--navy-500);
+  }
+  .btn-ghost:hover { background: var(--navy-700); border-color: var(--navy-300); }
+
+  .btn-sm { padding: 5px 11px; font-size: 12.5px; }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  aside {
+    width: 260px;
+    background: var(--navy-900);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .sidebar-section-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy-300);
+    padding: 12px 20px 6px;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 20px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    font-size: 13.5px;
+    color: var(--navy-100);
+  }
+
+  .sidebar-item:hover { background: var(--navy-800); color: var(--white); }
+
+  .sidebar-item.active {
+    background: var(--navy-700);
+    border-left-color: var(--gold);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .sidebar-item .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sidebar-badge {
+    margin-left: auto;
+    background: var(--navy-600);
+    color: var(--navy-200);
+    border-radius: 10px;
+    font-size: 11px;
+    padding: 1px 7px;
+    font-weight: 600;
+  }
+
+  .sidebar-item.active .sidebar-badge { background: var(--navy-500); color: var(--gold); }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 32px;
+  }
+
+  /* ── STATS CARDS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--navy-200);
+  }
+
+  .stat-card.gold-top { border-top-color: var(--gold); }
+  .stat-card.green-top { border-top-color: var(--success); }
+  .stat-card.warn-top { border-top-color: var(--warning); }
+
+  .stat-label { font-size: 11.5px; color: var(--grey-600); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  .stat-value { font-size: 32px; font-weight: 700; color: var(--navy-800); margin: 6px 0 2px; line-height: 1; }
+  .stat-sub { font-size: 12px; color: var(--grey-400); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .page-title { font-size: 22px; font-weight: 700; color: var(--navy-800); }
+  .page-subtitle { font-size: 13px; color: var(--grey-600); margin-top: 3px; }
+
+  /* ── FILTERS BAR ── */
+  .filters-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .filter-chip {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    border: 1.5px solid var(--grey-200);
+    background: var(--white);
+    color: var(--grey-600);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-chip:hover { border-color: var(--navy-300); color: var(--navy-600); }
+  .filter-chip.active { background: var(--navy-800); color: var(--white); border-color: var(--navy-800); }
+
+  select.filter-select {
+    padding: 5px 12px;
+    border-radius: 7px;
+    border: 1.5px solid var(--grey-200);
+    background: var(--white);
+    color: var(--grey-600);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    padding-right: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+
+  /* ── CPA CARDS GRID ── */
+  .cpa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+
+  .cpa-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid transparent;
+  }
+
+  .cpa-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(13,31,60,0.18);
+    border-color: var(--navy-200);
+  }
+
+  .cpa-card-header {
+    padding: 18px 20px 14px;
+    background: var(--navy-800);
+    color: var(--white);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .cpa-card-header h3 { font-size: 14.5px; font-weight: 700; line-height: 1.3; }
+  .cpa-card-header .team-badge {
+    font-size: 10.5px;
+    background: var(--navy-600);
+    color: var(--navy-100);
+    padding: 2px 9px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .cpa-card-body { padding: 16px 20px; }
+
+  .progress-section { margin-bottom: 14px; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--grey-600);
+    margin-bottom: 6px;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: var(--grey-200);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--navy-500), var(--navy-300));
+    transition: width 0.4s ease;
+  }
+
+  .cpa-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--grey-600);
+  }
+
+  .cpa-meta span { display: flex; align-items: center; gap: 4px; }
+
+  .cpa-card-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--grey-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .status-pill {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  .status-pill.on-track { background: #dcfce7; color: #16a34a; }
+  .status-pill.in-progress { background: #dbeafe; color: #1d4ed8; }
+  .status-pill.behind { background: #fee2e2; color: #dc2626; }
+  .status-pill.not-started { background: var(--grey-200); color: var(--grey-600); }
+
+  /* ── ACTIVITY TABLE VIEW ── */
+  .table-view { display: none; }
+
+  .table-container {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead { background: var(--navy-800); color: var(--white); }
+  thead th {
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  tbody tr { border-bottom: 1px solid var(--grey-200); transition: background 0.12s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--navy-50); }
+
+  tbody td {
+    padding: 13px 16px;
+    font-size: 13.5px;
+    color: var(--navy-800);
+    vertical-align: middle;
+  }
+
+  .checkbox-cell { width: 40px; text-align: center; }
+
+  input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--navy-600);
+    cursor: pointer;
+  }
+
+  .category-tag {
+    font-size: 11px;
+    background: var(--navy-50);
+    color: var(--navy-500);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .tl-name {
+    font-size: 12px;
+    color: var(--grey-600);
+  }
+
+  .date-range { font-size: 12.5px; color: var(--grey-600); white-space: nowrap; }
+
+  .row-actions { display: flex; gap: 6px; opacity: 0; transition: opacity 0.15s; }
+  tbody tr:hover .row-actions { opacity: 1; }
+
+  .icon-btn {
+    width: 28px; height: 28px;
+    border-radius: 5px;
+    border: 1px solid var(--grey-200);
+    background: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grey-600);
+    transition: all 0.15s;
+  }
+  .icon-btn:hover { background: var(--navy-800); color: var(--white); border-color: var(--navy-800); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 22, 40, 0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: 12px;
+    width: 560px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+  }
+
+  .modal-header {
+    background: var(--navy-800);
+    color: var(--white);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .modal-header h2 { font-size: 16px; font-weight: 700; }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--navy-200);
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+  .modal-close:hover { background: var(--navy-700); color: var(--white); }
+
+  .modal-body { padding: 24px; }
+
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy-700);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--grey-200);
+    border-radius: 7px;
+    font-size: 13.5px;
+    color: var(--navy-800);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.15s;
+    font-family: inherit;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--navy-400); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--grey-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--navy-800);
+    border: 1.5px solid var(--grey-200);
+  }
+  .btn-outline:hover { border-color: var(--navy-400); background: var(--grey-100); }
+
+  /* ── CPA DETAIL VIEW ── */
+  .detail-view { display: none; }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--navy-500);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 18px;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .back-btn:hover { color: var(--navy-800); }
+
+  .detail-banner {
+    background: var(--navy-800);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .detail-banner h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .detail-banner .meta { font-size: 13px; color: var(--navy-200); }
+
+  .detail-stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 24px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .detail-stat-val { font-size: 28px; font-weight: 700; }
+  .detail-stat-label { font-size: 11px; color: var(--navy-200); margin-top: 2px; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--grey-400);
+  }
+  .empty-state svg { margin-bottom: 16px; opacity: 0.4; }
+  .empty-state h3 { font-size: 16px; font-weight: 600; color: var(--grey-600); margin-bottom: 8px; }
+  .empty-state p { font-size: 13.5px; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--navy-800);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 300;
+    border-left: 4px solid var(--gold);
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── VIEW TOGGLE ── */
+  .view-toggle {
+    display: flex;
+    border: 1.5px solid var(--grey-200);
+    border-radius: 7px;
+    overflow: hidden;
+  }
+
+  .view-btn {
+    padding: 7px 12px;
+    background: var(--white);
+    border: none;
+    cursor: pointer;
+    color: var(--grey-400);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+  }
+
+  .view-btn.active { background: var(--navy-800); color: var(--white); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--navy-200); border-radius: 3px; }
+
+  /* ── GANTT CHART ── */
+  .gantt-outer {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 78vh;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  /* Sticky header rows — month row at top, week row just below it */
+  .g-header-months th { position: sticky; top: 0;   z-index: 6; }
+  .g-header-weeks  th { position: sticky; top: 34px; z-index: 6; }
+  /* Corner cells need both axes sticky — higher z so they sit above everything */
+  .g-header-months .g-fixed { z-index: 9; }
+  .g-header-weeks  .g-fixed { z-index: 9; }
+
+  .gantt-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 100%;
+  }
+
+  /* Sticky fixed columns */
+  .g-fixed {
+    position: sticky;
+    background: var(--white);
+    z-index: 3;
+  }
+
+  /* Column left offsets */
+  .g-check-cell  { left: 0;     width: 36px;  min-width: 36px;  text-align: center; border-right: 1px solid var(--grey-200); }
+  .g-name-cell   { left: 36px;  width: 210px; min-width: 210px; padding: 6px 10px;  border-right: 1px solid var(--grey-200); font-size: 11.5px; }
+  .g-lead-cell   { left: 246px; width: 100px; min-width: 100px; padding: 6px 10px;  border-right: 1px solid var(--grey-200); font-size: 11px; color: var(--grey-600); }
+  .g-status-cell { left: 346px; width: 110px; min-width: 110px; padding: 6px 8px;   border-right: 2px solid var(--navy-200); text-align: center; }
+
+  /* Header rows */
+  .g-header-months { height: 34px; background: var(--navy-800); color: var(--white); }
+  .g-header-weeks  { height: 28px; background: var(--navy-700); color: var(--white); }
+
+  .g-header-months .g-fixed,
+  .g-header-weeks .g-fixed {
+    background: inherit;
+    color: var(--navy-100);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    z-index: 5;
+  }
+
+  .g-header-info {
+    left: 0;
+    width: 456px;
+    min-width: 456px;
+    padding: 0 16px !important;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gold) !important;
+    border-right: 2px solid rgba(255,255,255,0.1) !important;
+    z-index: 5;
+  }
+
+  .g-timeline-th {
+    padding: 0;
+    background: var(--navy-800);
+  }
+
+  .g-weeks-th {
+    padding: 0;
+    background: var(--navy-700);
+  }
+
+  /* Category row */
+  .g-cat-row td {
+    padding: 4px 12px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navy-600);
+    background: var(--navy-50);
+    border-bottom: 1px solid var(--grey-200);
+  }
+
+  .g-cat-cell {
+    left: 0;
+    z-index: 3;
+    padding-left: 14px !important;
+    background: var(--navy-50) !important;
+  }
+
+  /* Activity rows */
+  .g-act-row { border-bottom: 1px solid var(--grey-200); }
+  .g-act-row:hover .g-fixed { background: var(--navy-50) !important; }
+  .g-act-row:hover { background: var(--navy-50); }
+
+  .g-name-inner { font-weight: 600; line-height: 1.3; white-space: normal; word-break: break-word; }
+  .g-type-badge { display:inline-block; font-size:8.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; padding:1px 6px; border-radius:8px; margin-top:3px; color:white; }
+  .g-notes-text { font-size: 10.5px; color: var(--grey-400); margin-top: 2px; line-height: 1.3; white-space: normal; }
+
+  .g-row-actions { display: flex; gap: 4px; margin-top: 4px; opacity: 0; transition: opacity 0.15s; }
+  .g-act-row:hover .g-row-actions { opacity: 1; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.38.3/lib/msal-browser.min.js"></script>
+</head>
+<body>
+
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay" style="display:none;position:fixed;inset:0;background:var(--navy-900);z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:24px">
+  <div style="text-align:center">
+    <div style="width:60px;height:60px;background:var(--gold);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--navy-900);margin:0 auto 16px">SG</div>
+    <h1 style="color:white;font-size:24px;font-weight:700;margin-bottom:6px">The Silo Group CPA Hub</h1>
+    <p style="color:var(--navy-200);font-size:14px">Sign in with your company Microsoft account to continue</p>
+  </div>
+  <button onclick="signIn()" style="background:var(--gold);color:var(--navy-900);border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:10px">
+    <svg width="20" height="20" viewBox="0 0 21 21" fill="none"><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
+    Sign in with Microsoft
+  </button>
+  <p id="loginError" style="color:#ef4444;font-size:13px;display:none"></p>
+</div>
+
+<!-- SETUP BANNER (shown when CONFIG not filled in) -->
+<div id="setupBanner" style="display:none;background:#7c3aed;color:white;padding:10px 20px;font-size:13px;text-align:center;position:fixed;top:0;left:0;right:0;z-index:8000">
+  ⚙️ SharePoint not configured yet — running in offline mode. Fill in <code style="background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:4px">CONFIG</code> at the top of the script to enable live sync.
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo">
+    <div class="logo-mark">SG</div>
+    <div class="logo-text">
+      <span class="brand">The Silo Group</span>
+      <span class="subtitle">CPA Hub</span>
+    </div>
+  </div>
+
+  <div class="header-search">
+    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" id="globalSearch" placeholder="Search activities, teams, owners…" oninput="handleGlobalSearch(this.value)">
+  </div>
+
+  <div class="header-actions">
+    <div id="userBadge" style="display:none;align-items:center;gap:8px;margin-right:8px">
+      <div id="userAvatar" style="width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--navy-900)"></div>
+      <span id="userName" style="color:white;font-size:12px;font-weight:600"></span>
+      <button onclick="signOut()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;padding:3px 10px;border-radius:6px;font-size:11px;cursor:pointer">Sign out</button>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="openModal()">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      Add Activity
+    </button>
+    <button class="btn btn-primary btn-sm" onclick="addNewCPA()">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      New CPA
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-section-label">Overview</div>
+    <div class="sidebar-item active" onclick="showDashboard(this)" data-view="dashboard">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      </svg>
+      All CPAs
+      <span class="sidebar-badge" id="totalCPABadge">0</span>
+    </div>
+
+    <div id="adminSidebarSection" style="display:none">
+      <div class="sidebar-item" onclick="showAdminPanel(this)" data-view="admin">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        User Management
+      </div>
+    </div>
+
+    <div class="sidebar-section-label" style="margin-top:12px">Teams</div>
+    <div id="teamList"></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main id="main">
+
+    <!-- ADMIN PANEL VIEW -->
+    <div id="adminView" style="display:none;padding:28px 32px;max-width:860px">
+      <div class="page-title" style="margin-bottom:4px">User Management</div>
+      <div class="page-subtitle" style="margin-bottom:24px">Invite colleagues and control which CPAs they can edit</div>
+
+      <!-- Invite form -->
+      <div style="background:white;border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin-bottom:24px">
+        <div style="font-weight:700;font-size:14px;color:var(--navy-800);margin-bottom:14px">Invite a user</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+          <div style="flex:1;min-width:200px">
+            <label style="font-size:11px;font-weight:600;color:var(--navy-600);display:block;margin-bottom:4px">Email address</label>
+            <input id="inviteEmail" type="email" placeholder="colleague@bootlegger.co.za"
+              style="width:100%;padding:8px 12px;border:1px solid var(--grey-200);border-radius:8px;font-size:13px;outline:none">
+          </div>
+          <div style="flex:1;min-width:160px">
+            <label style="font-size:11px;font-weight:600;color:var(--navy-600);display:block;margin-bottom:4px">Display name</label>
+            <input id="inviteName" type="text" placeholder="First Last"
+              style="width:100%;padding:8px 12px;border:1px solid var(--grey-200);border-radius:8px;font-size:13px;outline:none">
+          </div>
+          <div style="flex:1;min-width:130px">
+            <label style="font-size:11px;font-weight:600;color:var(--navy-600);display:block;margin-bottom:4px">Role</label>
+            <select id="inviteRole" onchange="toggleInviteCPAs()"
+              style="width:100%;padding:8px 12px;border:1px solid var(--grey-200);border-radius:8px;font-size:13px;outline:none;background:white">
+              <option value="viewer">Viewer (all CPAs, no edit)</option>
+              <option value="editor">Editor (select CPAs)</option>
+              <option value="admin">Admin (full access)</option>
+            </select>
+          </div>
+        </div>
+        <div id="inviteCPAsSection" style="display:none;margin-top:14px">
+          <label style="font-size:11px;font-weight:600;color:var(--navy-600);display:block;margin-bottom:8px">Which CPAs can they edit?</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap" id="inviteCPACheckboxes"></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:16px">
+          <button onclick="inviteUser()" class="btn btn-primary btn-sm">Add User</button>
+          <span id="inviteStatus" style="font-size:12px;color:var(--navy-400)"></span>
+        </div>
+        <div style="margin-top:14px;padding:10px 14px;background:var(--navy-50);border-radius:8px;font-size:12px;color:var(--navy-600)">
+          📎 Share this link with them once added:
+          <a id="appLink" href="#" style="color:var(--navy-400);font-weight:600;margin-left:6px"></a>
+          <button onclick="copyAppLink()" style="margin-left:8px;padding:2px 10px;border:1px solid var(--navy-200);border-radius:6px;font-size:11px;background:white;cursor:pointer;color:var(--navy-700)">Copy link</button>
+        </div>
+      </div>
+
+      <!-- User list -->
+      <div style="background:white;border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)">
+        <div style="font-weight:700;font-size:14px;color:var(--navy-800);margin-bottom:14px">Current users</div>
+        <div id="userListTable">
+          <div style="color:var(--grey-400);font-size:13px;padding:12px 0">Loading users…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLOBAL SEARCH RESULTS VIEW -->
+    <div id="globalSearchView" style="display:none;padding:28px 32px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+        <div class="page-title">Search Results</div>
+        <span id="searchResultCount" style="font-size:12px;color:var(--navy-400);font-weight:500"></span>
+      </div>
+      <div class="page-subtitle" style="margin-bottom:20px" id="searchResultSubtitle">Searching across all CPAs…</div>
+      <div id="searchResultsBody"></div>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboardView">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="page-header">
+        <div>
+          <div class="page-title" id="viewTitle">All CPAs</div>
+          <div class="page-subtitle" id="viewSubtitle">Showing all teams and activities</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <select class="filter-select" id="categoryFilter" onchange="applyFilters()">
+            <option value="">All Categories</option>
+          </select>
+          <div class="view-toggle">
+            <button class="view-btn active" id="cardViewBtn" onclick="setView('card')" title="Card view">
+              <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </button>
+            <button class="view-btn" id="tableViewBtn" onclick="setView('table')" title="Table view">
+              <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="filters-bar" id="statusFilters">
+        <div class="filter-chip active" onclick="setStatusFilter('all', this)">All</div>
+        <div class="filter-chip" onclick="setStatusFilter('In Progress', this)">In Progress</div>
+        <div class="filter-chip" onclick="setStatusFilter('Not Started', this)">Not Started</div>
+        <div class="filter-chip" onclick="setStatusFilter('Completed', this)">Completed</div>
+        <div class="filter-chip" onclick="setStatusFilter('Behind', this)">Behind</div>
+      </div>
+
+      <!-- Card view -->
+      <div class="cpa-grid" id="cpaGrid"></div>
+
+      <!-- Table view -->
+      <div class="table-view" id="tableView">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th class="checkbox-cell"></th>
+                <th>Activity</th>
+                <th>Category</th>
+                <th>CPA / Team</th>
+                <th>Lead</th>
+                <th>Dates</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL VIEW -->
+    <div id="detailView" style="display:none;flex-direction:column">
+
+      <!-- Dark header -->
+      <div style="background:var(--navy-800);color:white;padding:20px 32px 0">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
+          <div>
+            <button onclick="goBack()" style="background:none;border:none;color:var(--navy-300);font-size:12px;cursor:pointer;padding:0;margin-bottom:8px;display:flex;align-items:center;gap:5px;font-weight:500">
+              ← Back to All CPAs
+            </button>
+            <div id="detailTitle" style="font-size:22px;font-weight:800;letter-spacing:-0.01em;line-height:1.1;color:white"></div>
+            <div id="detailDate" style="font-size:12px;color:var(--navy-300);margin-top:4px"></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding-top:28px">
+            <button class="btn btn-primary btn-sm" onclick="openModal()">+ New Item</button>
+          </div>
+        </div>
+        <!-- Stats bar -->
+        <div id="detailStats" style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,0.08);margin:0 -32px;padding:0 32px"></div>
+        <!-- Tab bar -->
+        <div style="display:flex;margin:0 -32px">
+          <button id="tabBoard" onclick="switchDetailTab('board')"
+            style="padding:12px 24px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:white;color:var(--navy-800);border-bottom:3px solid var(--gold);margin-top:1px">
+            CPA Board
+          </button>
+          <button id="tabTimeline" onclick="switchDetailTab('timeline')"
+            style="padding:12px 24px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:transparent;color:rgba(255,255,255,0.55);border-bottom:3px solid transparent">
+            Timeline
+          </button>
+        </div>
+      </div>
+
+      <!-- Category pills + legend -->
+      <div style="background:white;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--grey-200);gap:8px;flex-wrap:wrap">
+        <div id="catPills" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+        <div style="display:flex;align-items:center;gap:14px;font-size:11px;color:var(--navy-500);flex-shrink:0">
+          <span style="display:flex;align-items:center;gap:5px">
+            <span style="width:13px;height:13px;border-radius:50%;background:var(--navy-700);display:inline-block;flex-shrink:0"></span>Start Date
+          </span>
+          <span style="display:flex;align-items:center;gap:5px">
+            <span style="width:13px;height:13px;border-radius:50%;background:var(--gold);display:inline-block;flex-shrink:0"></span>End / Go Live
+          </span>
+        </div>
+      </div>
+
+      <!-- Gantt / board container -->
+      <div id="ganttContainer" style="flex:1;overflow:auto;background:var(--grey-100)"></div>
+    </div>
+  </main>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Add New Activity</h2>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>Activity Name *</label>
+        <input type="text" id="formName" placeholder="e.g. Summer Menu Launch">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>CPA / Team *</label>
+          <select id="formCPA"></select>
+        </div>
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="formCategory"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Team Lead / Owner</label>
+        <input type="text" id="formLead" placeholder="e.g. John Smith">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" id="formStart">
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          <input type="date" id="formEnd">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="formStatus">
+            <option>Not Started</option>
+            <option>In Progress</option>
+            <option>On Track</option>
+            <option>Completed</option>
+            <option>Behind</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Priority</label>
+          <select id="formPriority">
+            <option>Medium</option>
+            <option>High</option>
+            <option>Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea id="formNotes" rows="3" placeholder="Any additional context…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveActivity()">Save Activity</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+    <path d="M20 6L9 17l-5-5"/>
+  </svg>
+  <span id="toastMsg">Saved!</span>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const CATEGORIES = [
+  'Marketing Campaigns & Events',
+  'Store Openings',
+  'Store Revamps',
+  'Product Launches',
+  'Operations & Training',
+  'Strategic Projects',
+  'Collaborations & Partnerships',
+  'Brand & Creative',
+  'Finance & Systems',
+  'HR & Culture',
+  'Other'
+];
+
+// ── SHAREPOINT / MSAL CONFIGURATION ──────────────────────────────────────────
+// Fill these in after completing the Azure AD App Registration setup
+const CONFIG = {
+  clientId: '6dcf1650-92c0-41d7-813e-90361a684c94',
+  tenantId: '5f1b25c2-c080-408a-b4da-51d05ec6dd81',
+  sharePointHost: 'bootleggercc.sharepoint.com',
+  sharePointSite: '/sites/SiloCPAHub',   // ← Your SharePoint site path (create this site)
+  // Map each CPA id to its SharePoint List name (create these lists in SharePoint)
+  lists: {
+    'cpa-silo':      'CPA_Silo',
+    'cpa-brand':     'CPA_Brand',
+    'cpa-marketing': 'CPA_Marketing',
+    'cpa-ops':       'CPA_Operations',
+    'cpa-openings':  'CPA_Openings',
+  }
+};
+
+const SP_SCOPES = ['https://graph.microsoft.com/Sites.ReadWrite.All', 'https://graph.microsoft.com/User.Read'];
+let msalApp   = null;
+let currentUser = null;
+let graphToken  = null;
+let spSiteId    = null;
+let spListIds   = {};   // cpaId → SharePoint list GUID
+let spLoading   = {};   // cpaId → boolean (loading in progress)
+let spLoaded    = {};   // cpaId → boolean (already loaded from SP)
+const isConfigured = () => CONFIG.clientId && CONFIG.tenantId;
+
+// ── USER PERMISSIONS ──────────────────────────────────────────────────────────
+let currentUserRole = 'admin';         // 'admin' | 'editor' | 'viewer' | 'none'
+let currentUserAllowedCPAs = [];       // cpaIds the user may edit
+let spUsersListId = null;
+function isAdmin()         { return currentUserRole === 'admin'; }
+function canEdit(cpaId)    { return currentUserRole === 'admin' || currentUserAllowedCPAs.includes(cpaId); }
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+
+async function initAuth() {
+  if (!isConfigured()) {
+    document.getElementById('setupBanner').style.display = 'block';
+    document.body.style.paddingTop = '40px';
+    init();
+    return;
+  }
+  msalApp = new msal.PublicClientApplication({
+    auth: {
+      clientId: CONFIG.clientId,
+      authority: `https://login.microsoftonline.com/${CONFIG.tenantId}`,
+      redirectUri: window.location.origin + window.location.pathname,
+    },
+    cache: { cacheLocation: 'sessionStorage', storeAuthStateInCookie: false }
+  });
+  await msalApp.initialize();
+
+  try {
+    const result = await msalApp.handleRedirectPromise();
+    if (result) {
+      currentUser = result.account;
+      graphToken  = result.accessToken;
+    } else {
+      const accounts = msalApp.getAllAccounts();
+      if (accounts.length > 0) {
+        currentUser = accounts[0];
+        const tr = await msalApp.acquireTokenSilent({ scopes: SP_SCOPES, account: currentUser });
+        graphToken = tr.accessToken;
+      }
+    }
+  } catch(e) {
+    console.warn('Token acquisition failed, will prompt login:', e);
+    currentUser = null;
+  }
+
+  if (!currentUser) {
+    document.getElementById('loginOverlay').style.display = 'flex';
+    return;
+  }
+
+  renderUserBadge();
+  await loadSPSiteId();
+  await loadUserPermissions();
+  console.log('[CPA Hub] Final role:', currentUserRole, '| User:', currentUser?.username);
+  init();
+}
+
+function renderUserBadge() {
+  if (!currentUser) return;
+  const name = currentUser.name || currentUser.username || 'User';
+  const initials = name.split(' ').map(p => p[0]).join('').substring(0, 2).toUpperCase();
+  document.getElementById('userAvatar').textContent = initials;
+  document.getElementById('userName').textContent = name.split(' ')[0];
+  document.getElementById('userBadge').style.display = 'flex';
+}
+
+async function signIn() {
+  if (!msalApp) return;
+  try {
+    await msalApp.loginRedirect({ scopes: SP_SCOPES });
+  } catch(e) {
+    const el = document.getElementById('loginError');
+    el.textContent = 'Sign in failed: ' + e.message;
+    el.style.display = 'block';
+  }
+}
+
+function signOut() {
+  if (msalApp) msalApp.logoutRedirect();
+}
+
+async function getGraphToken() {
+  if (!msalApp || !currentUser) return null;
+  try {
+    const r = await msalApp.acquireTokenSilent({ scopes: SP_SCOPES, account: currentUser });
+    graphToken = r.accessToken;
+    return graphToken;
+  } catch {
+    await msalApp.acquireTokenRedirect({ scopes: SP_SCOPES });
+    return null;
+  }
+}
+
+// ── GRAPH API HELPERS ─────────────────────────────────────────────────────────
+
+async function spFetch(url, options = {}) {
+  const token = await getGraphToken();
+  if (!token) throw new Error('Not authenticated');
+  const r = await fetch(url, {
+    ...options,
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      ...(options.headers || {})
+    }
+  });
+  if (!r.ok) {
+    const body = await r.text();
+    throw new Error(`${r.status}: ${body}`);
+  }
+  if (r.status === 204) return null;
+  return r.json();
+}
+
+// Column definitions for activity lists (Graph API format)
+const ACTIVITY_COLUMNS = [
+  { name: 'Category',  text: {} },
+  { name: 'Lead',      text: {} },
+  { name: 'StartDate', dateTime: { format: 'dateOnly' } },
+  { name: 'EndDate',   dateTime: { format: 'dateOnly' } },
+  { name: 'Status',    text: {} },
+  { name: 'Done',      boolean: {} },
+  { name: 'Priority',  text: {} },
+  { name: 'Notes',     text: { allowMultipleLines: true } },
+];
+
+async function ensureListColumns(listId) {
+  try {
+    // Get existing columns
+    const existing = await spFetch(
+      `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${listId}/columns?$select=name`
+    );
+    const existingNames = new Set((existing.value || []).map(c => c.name.toLowerCase()));
+    // Create any missing columns in parallel
+    const missing = ACTIVITY_COLUMNS.filter(c => !existingNames.has(c.name.toLowerCase()));
+    if (missing.length > 0) {
+      await Promise.allSettled(missing.map(col =>
+        spFetch(`https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${listId}/columns`, {
+          method: 'POST', body: JSON.stringify(col)
+        })
+      ));
+    }
+  } catch(e) {
+    console.warn('Could not ensure list columns:', e);
+  }
+}
+
+async function loadSPSiteId() {
+  if (!isConfigured()) return;
+  try {
+    const data = await spFetch(
+      `https://graph.microsoft.com/v1.0/sites/${CONFIG.sharePointHost}:${CONFIG.sharePointSite}`
+    );
+    spSiteId = data.id;
+    // Discover list IDs
+    const listsData = await spFetch(
+      `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists?$select=id,displayName`
+    );
+    for (const [cpaId, listName] of Object.entries(CONFIG.lists)) {
+      const match = listsData.value.find(l => l.displayName === listName);
+      if (match) spListIds[cpaId] = match.id;
+    }
+    // Ensure all activity lists have the required columns (runs in background)
+    Object.values(spListIds).forEach(listId => ensureListColumns(listId));
+  } catch(e) {
+    console.error('SharePoint site connect failed:', e);
+    showToast('⚠️ Could not connect to SharePoint — using offline data');
+  }
+}
+
+// ── USER PERMISSIONS (CPA_Users list) ────────────────────────────────────────
+
+async function loadUserPermissions() {
+  if (!spSiteId) return;
+  try {
+    const listsData = await spFetch(`https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists?$select=id,displayName`);
+    const ul = listsData.value.find(l => l.displayName === 'CPA_Users');
+    if (!ul) {
+      // List doesn't exist yet → bootstrap: current user is admin
+      currentUserRole = 'admin';
+      currentUserAllowedCPAs = Object.keys(CONFIG.lists);
+      await createCPAUsersList();
+      return;
+    }
+    spUsersListId = ul.id;
+    // Collect all possible email identifiers for this user
+    const emailCandidates = [
+      currentUser?.username,
+      currentUser?.idTokenClaims?.preferred_username,
+      currentUser?.idTokenClaims?.email,
+      currentUser?.idTokenClaims?.upn,
+    ].filter(Boolean).map(e => e.toLowerCase());
+    const email = emailCandidates[0] || '';
+    console.log('[CPA Hub] Looking up user with emails:', emailCandidates);
+    const data = await spFetch(
+      `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spUsersListId}/items?$expand=fields&$top=500`
+    );
+    if (data.value.length === 0) {
+      // Empty list → first user becomes admin
+      currentUserRole = 'admin';
+      currentUserAllowedCPAs = Object.keys(CONFIG.lists);
+      await addUserToSP({ email, displayName: currentUser?.name || email, role: 'admin', allowedCPAs: Object.keys(CONFIG.lists) });
+      return;
+    }
+    const match = data.value.find(item => {
+      const stored = (item.fields.Title || '').toLowerCase();
+      return emailCandidates.some(e => e === stored);
+    });
+    if (match) {
+      const f = match.fields;
+      currentUserRole = (f.Role || 'viewer').toLowerCase();
+      currentUserAllowedCPAs = (f.AllowedCPAs || '').split(',').map(s => s.trim()).filter(Boolean);
+    } else {
+      currentUserRole = 'none';
+      currentUserAllowedCPAs = [];
+    }
+  } catch(e) {
+    console.warn('Could not load user permissions:', e);
+    currentUserRole = 'admin'; // fail-open for setup
+  }
+}
+
+async function createCPAUsersList() {
+  if (!spSiteId) return;
+  try {
+    const digest = await getSPDigest();
+    const r = await fetch(`https://bootleggercc.sharepoint.com/sites/SiloCPAHub/_api/web/lists`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json;odata=verbose', 'Content-Type': 'application/json;odata=verbose', 'X-RequestDigest': digest },
+      body: JSON.stringify({ '__metadata': { 'type': 'SP.List' }, 'Title': 'CPA_Users', 'BaseTemplate': 100 })
+    });
+    if (r.status === 201) {
+      const cols = [
+        { Title: 'DisplayName', FieldTypeKind: 2 },
+        { Title: 'Role',        FieldTypeKind: 2 },
+        { Title: 'AllowedCPAs',FieldTypeKind: 3 },
+      ];
+      for (const col of cols) {
+        await fetch(`https://bootleggercc.sharepoint.com/sites/SiloCPAHub/_api/web/lists/getbytitle('CPA_Users')/fields`, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json;odata=verbose', 'Content-Type': 'application/json;odata=verbose', 'X-RequestDigest': digest },
+          body: JSON.stringify({ '__metadata': { 'type': 'SP.Field' }, ...col, Required: false })
+        });
+      }
+      // Reload list ID
+      const ld = await spFetch(`https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists?$select=id,displayName`);
+      const ul = ld.value.find(l => l.displayName === 'CPA_Users');
+      if (ul) spUsersListId = ul.id;
+      // Add first admin
+      const email = (currentUser?.username || '').toLowerCase();
+      await addUserToSP({ email, displayName: currentUser?.name || email, role: 'admin', allowedCPAs: Object.keys(CONFIG.lists) });
+    }
+  } catch(e) { console.warn('Could not create CPA_Users list:', e); }
+}
+
+async function getSPDigest() {
+  const r = await fetch('/sites/SiloCPAHub/_api/contextinfo', { method: 'POST', headers: { 'Accept': 'application/json;odata=verbose', 'Content-Length': '0' } });
+  const d = await r.json();
+  return d.d.GetContextWebInformation.FormDigestValue;
+}
+
+async function addUserToSP({ email, displayName, role, allowedCPAs }) {
+  if (!spSiteId || !spUsersListId) return null;
+  const fields = { Title: email.toLowerCase(), DisplayName: displayName, Role: role, AllowedCPAs: (allowedCPAs||[]).join(',') };
+  const result = await spFetch(`https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spUsersListId}/items`, { method: 'POST', body: JSON.stringify({ fields }) });
+  return result;
+}
+
+async function updateUserInSP(spItemId, { role, allowedCPAs }) {
+  if (!spSiteId || !spUsersListId) return;
+  await spFetch(`https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spUsersListId}/items/${spItemId}/fields`, { method: 'PATCH', body: JSON.stringify({ Role: role, AllowedCPAs: (allowedCPAs||[]).join(',') }) });
+}
+
+async function deleteUserFromSP(spItemId) {
+  if (!spSiteId || !spUsersListId) return;
+  await spFetch(`https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spUsersListId}/items/${spItemId}`, { method: 'DELETE' });
+}
+
+async function loadAllUsers() {
+  if (!spSiteId || !spUsersListId) return [];
+  const data = await spFetch(`https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spUsersListId}/items?$expand=fields&$top=500`);
+  return data.value.map(item => ({
+    spItemId: String(item.id),
+    email: item.fields.Title || '',
+    displayName: item.fields.DisplayName || item.fields.Title || '',
+    role: item.fields.Role || 'viewer',
+    allowedCPAs: (item.fields.AllowedCPAs || '').split(',').map(s => s.trim()).filter(Boolean),
+  }));
+}
+
+// ── SHAREPOINT DATA OPERATIONS ────────────────────────────────────────────────
+
+function spFieldsToActivity(item, cpaId) {
+  const f = item.fields;
+  return {
+    id:       'sp_' + item.id,
+    spItemId: String(item.id),
+    cpaId,
+    name:     f.Title    || '',
+    category: f.Category || '',
+    lead:     f.Lead     || '',
+    start:    f.StartDate ? f.StartDate.substring(0, 10) : '',
+    end:      f.EndDate   ? f.EndDate.substring(0, 10)   : '',
+    status:   f.Status   || 'Not Started',
+    done:     !!f.Done,
+    priority: f.Priority || 'Medium',
+    notes:    f.Notes    || '',
+  };
+}
+
+function activityToSpFields(a) {
+  return {
+    Title:     a.name,
+    Category:  a.category  || '',
+    Lead:      a.lead      || '',
+    StartDate: a.start     || null,
+    EndDate:   a.end       || null,
+    Status:    a.status    || 'Not Started',
+    Done:      a.done      || false,
+    Priority:  a.priority  || 'Medium',
+    Notes:     a.notes     || '',
+  };
+}
+
+async function loadActivitiesFromSP(cpaId) {
+  if (!spSiteId || !spListIds[cpaId] || spLoaded[cpaId] || spLoading[cpaId]) return;
+  spLoading[cpaId] = true;
+  try {
+    const data = await spFetch(
+      `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spListIds[cpaId]}/items?$expand=fields&$top=500`
+    );
+
+    if (data.value.length > 0) {
+      // SharePoint has data — pull it in and replace in-memory activities for this CPA
+      const spActs = data.value.map(item => spFieldsToActivity(item, cpaId));
+      activities = activities.filter(a => a.cpaId !== cpaId);
+      activities.push(...spActs);
+    } else {
+      // SharePoint list is empty — seed it with the current in-memory (hardcoded) activities
+      const toSeed = activities.filter(a => a.cpaId === cpaId);
+      if (toSeed.length > 0) {
+        showToast(`⏳ First sync: pushing ${toSeed.length} activities to SharePoint…`);
+        let seeded = 0;
+        for (const act of toSeed) {
+          try {
+            const result = await spFetch(
+              `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spListIds[cpaId]}/items`,
+              { method: 'POST', body: JSON.stringify({ fields: activityToSpFields(act) }) }
+            );
+            act.spItemId = String(result.id);
+            act.id = 'sp_' + result.id;
+            seeded++;
+          } catch(e) {
+            console.warn('Seed failed for', act.name, e);
+          }
+        }
+        showToast(`✅ Synced ${seeded} activities to SharePoint`);
+      }
+    }
+    spLoaded[cpaId] = true;
+  } catch(e) {
+    console.error('Load from SP failed for', cpaId, e);
+    showToast('⚠️ Could not load from SharePoint — showing cached data');
+  }
+  spLoading[cpaId] = false;
+}
+
+async function saveActivityToSP(activity) {
+  if (!spSiteId || !spListIds[activity.cpaId]) return;
+  const fields = activityToSpFields(activity);
+  try {
+    if (activity.spItemId) {
+      await spFetch(
+        `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spListIds[activity.cpaId]}/items/${activity.spItemId}/fields`,
+        { method: 'PATCH', body: JSON.stringify(fields) }
+      );
+    } else {
+      const result = await spFetch(
+        `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spListIds[activity.cpaId]}/items`,
+        { method: 'POST', body: JSON.stringify({ fields }) }
+      );
+      activity.spItemId = String(result.id);
+      activity.id = 'sp_' + result.id;
+    }
+  } catch(e) {
+    console.error('SP save failed:', e);
+    showToast('⚠️ Could not save to SharePoint: ' + (e.message || 'Unknown error'));
+    throw e;
+  }
+}
+
+async function deleteActivityFromSP(activity) {
+  if (!spSiteId || !spListIds[activity.cpaId] || !activity.spItemId) return;
+  try {
+    await spFetch(
+      `https://graph.microsoft.com/v1.0/sites/${spSiteId}/lists/${spListIds[activity.cpaId]}/items/${activity.spItemId}`,
+      { method: 'DELETE' }
+    );
+  } catch(e) {
+    console.error('SP delete failed:', e);
+    showToast('⚠️ Could not delete from SharePoint');
+  }
+}
+
+const TEAMS = [
+  { id: 'silo',      name: 'The Silo Group',  color: '#c9a84c' },
+  { id: 'brand',     name: 'Brand Direction', color: '#1a3557' },
+  { id: 'marketing', name: 'Marketing',       color: '#1e3a5f' },
+  { id: 'operations',name: 'Operations',      color: '#132847' },
+  { id: 'finance',   name: 'Finance',         color: '#0d1f3c' },
+  { id: 'hr',        name: 'Human Resources', color: '#1a3557' },
+];
+
+let cpas = [
+  {
+    id: 'cpa-silo',
+    title: 'Silo Group Weekly Project Update',
+    teamId: 'silo',
+    team: 'The Silo Group',
+    lead: 'Tamaryn James',
+    period: 'Jun 2026 – Dec 2026',
+    status: 'In Progress',
+    sharePointUrl: 'https://bootleggercc-my.sharepoint.com/:x:/g/personal/tamaryn_thesilogroup_co_za/IQC-yUKBb1FSSYJqqc0-Rf1JARRFTHS_0JfpRDoRJxgnieA?e=qVAZyh',
+  },
+  {
+    id: 'cpa-brand',
+    title: 'Brand Direction CPA',
+    teamId: 'brand',
+    team: 'Brand Direction',
+    lead: 'Miguel Netto',
+    period: 'Jun 2026 – Dec 2026',
+    status: 'In Progress',
+    sharePointUrl: 'https://bootleggercc-my.sharepoint.com/personal/leora_bootlegger_co_za/Documents/CPA/BL%20-Brand%20Direction%20CPA.xlsx',
+  },
+  {
+    id: 'cpa-marketing',
+    title: 'Marketing Activations CPA',
+    teamId: 'marketing',
+    team: 'Marketing',
+    lead: 'Claire Shapiro',
+    period: 'Jun 2026 – Dec 2026',
+    status: 'In Progress',
+    sharePointUrl: '',
+  },
+  {
+    id: 'cpa-ops',
+    title: 'Operations CPA',
+    teamId: 'operations',
+    team: 'Operations',
+    lead: 'Talana Wilkinson',
+    period: 'Jun 2026 – Dec 2026',
+    status: 'Not Started',
+    sharePointUrl: '',
+  },
+  {
+    id: 'cpa-openings',
+    title: 'Store Openings & Revamps CPA',
+    teamId: 'operations',
+    team: 'Operations',
+    lead: 'Jonty Adams',
+    period: 'Jun 2026 – Dec 2026',
+    status: 'On Track',
+    sharePointUrl: '',
+  },
+];
+
+let activities = [
+  // ── SILO GROUP PROJECT UPDATES ────────────────────────────────────────────
+  // Bootlegger Openings
+  { id: 'sp01', cpaId: 'cpa-silo', name: 'Steiltes TEMSA XS (MP)',            category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-06-25', end: '2026-06-25', status: 'Completed',   done: true,  priority: 'High',   notes: '' },
+  { id: 'sp02', cpaId: 'cpa-silo', name: 'The Pearls (KZN)',                   category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-03', end: '2026-07-10', status: 'In Progress', done: false, priority: 'High',   notes: 'TBC' },
+  { id: 'sp03', cpaId: 'cpa-silo', name: 'Woodmead XS (GP)',                   category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-15', end: '2026-07-22', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp04', cpaId: 'cpa-silo', name: 'Three Rivers',                       category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-16', end: '2026-07-23', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp05', cpaId: 'cpa-silo', name: 'Alzu Rayton XS (GP)',                category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-06-29', end: '2026-08-10', status: 'In Progress', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp06', cpaId: 'cpa-silo', name: 'TEMSA Mafikeng',                     category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-01', end: '2026-08-14', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp07', cpaId: 'cpa-silo', name: 'Walmer Park',                        category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-30', end: '2026-08-06', status: 'Not Started', done: false, priority: 'High',   notes: 'Late start due to late payment' },
+  { id: 'sp08', cpaId: 'cpa-silo', name: 'Parkhurst (GP)',                     category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-11', end: '2026-08-18', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp09', cpaId: 'cpa-silo', name: 'Springbok XS (NC)',                  category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-13', end: '2026-08-19', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp10', cpaId: 'cpa-silo', name: '23 Lower Long XS (WC)',              category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-15', end: '2026-08-20', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp11', cpaId: 'cpa-silo', name: 'Haasendal Gables (WC)',              category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-01', end: '2026-09-01', status: 'Not Started', done: false, priority: 'High',   notes: '1 month delay, awaiting confirmed dates' },
+  { id: 'sp12', cpaId: 'cpa-silo', name: 'Total Diep River',                   category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-07-01', end: '2026-08-07', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp13', cpaId: 'cpa-silo', name: 'Wale Street XS (WC)',                category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-17', end: '2026-09-15', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp14', cpaId: 'cpa-silo', name: 'Alzu Petro Port N4 XS (MP)',         category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-03', end: '2026-09-03', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp15a',cpaId: 'cpa-silo', name: 'Paarl Mall (WC)',                    category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-03', end: '2026-10-01', status: 'Not Started', done: false, priority: 'High',   notes: '1 month delay, awaiting confirmed dates' },
+  { id: 'sp15', cpaId: 'cpa-silo', name: 'Cavendish',                          category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-01', end: '2026-09-01', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  // Ou Meul Openings
+  { id: 'sp16', cpaId: 'cpa-silo', name: 'Newlands (Ou Meul)',                 category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-06-29', end: '2026-07-07', status: 'Not Started', done: false, priority: 'High',   notes: 'Ou Meul' },
+  { id: 'sp17', cpaId: 'cpa-silo', name: 'George (Ou Meul)',                   category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-01', end: '2026-08-12', status: 'Not Started', done: false, priority: 'High',   notes: 'Ou Meul' },
+  { id: 'sp18', cpaId: 'cpa-silo', name: 'Muizenberg (Ou Meul)',               category: 'Store Openings', lead: 'Jonty Adams',       start: '2026-08-13', end: '2026-08-21', status: 'Not Started', done: false, priority: 'High',   notes: 'Ou Meul' },
+  // HQ
+  { id: 'sp19', cpaId: 'cpa-silo', name: 'HQ Office – 2nd Floor',              category: 'Strategic Projects', lead: 'Jonty Adams',   start: '2026-06-25', end: '2026-06-25', status: 'Completed',   done: true,  priority: 'High',   notes: '' },
+  { id: 'sp20', cpaId: 'cpa-silo', name: 'HQ Office – 1st Floor',              category: 'Strategic Projects', lead: 'Jonty Adams',   start: '2026-07-02', end: '2026-07-02', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  // Revamps
+  { id: 'sp21', cpaId: 'cpa-silo', name: 'Aquarium Revamp (Store & Kiosk)',    category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-06-23', end: '2026-06-24', status: 'Completed',   done: true,  priority: 'High',   notes: '2 parts – store & kiosk' },
+  { id: 'sp22', cpaId: 'cpa-silo', name: 'Woodstock Quarter Refresh',          category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-06-22', end: '2026-07-09', status: 'In Progress', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp23', cpaId: 'cpa-silo', name: 'TAB – Additional',                   category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-06-22', end: '2026-07-09', status: 'In Progress', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp24', cpaId: 'cpa-silo', name: 'Gardens Revamp',                     category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-06-29', end: '2026-07-09', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp25', cpaId: 'cpa-silo', name: 'Ferndale Revamp',                    category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-07-01', end: '2026-07-23', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp26', cpaId: 'cpa-silo', name: 'Bakoven Revamp',                     category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-08-13', end: '2026-09-05', status: 'Not Started', done: false, priority: 'Medium', notes: 'TBC' },
+  { id: 'sp27', cpaId: 'cpa-silo', name: 'Green Point Revamp',                 category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-08-15', end: '2026-09-07', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp28', cpaId: 'cpa-silo', name: 'Blouberg Revamp',                    category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-08-03', end: '2026-09-26', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp29', cpaId: 'cpa-silo', name: 'Blueberry Revamp',                   category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-08-08', end: '2026-10-02', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp30', cpaId: 'cpa-silo', name: 'Chartwell Revamp',                   category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-08-05', end: '2026-10-23', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp31', cpaId: 'cpa-silo', name: 'Ou Meul Windfarm Revamp',            category: 'Store Revamps',  lead: 'Jonty Adams',       start: '2026-07-21', end: '2026-08-04', status: 'Not Started', done: false, priority: 'Medium', notes: 'Ou Meul' },
+  // Bootlegger Timed Events (Jaime)
+  { id: 'sp32', cpaId: 'cpa-silo', name: 'Namibia Menu Launch',                category: 'Marketing Campaigns & Events', lead: 'Jaime', start: '2026-07-11', end: '2026-07-11', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp33', cpaId: 'cpa-silo', name: 'Launch of External Accounting Solution', category: 'Finance & Systems', lead: 'Jaime',    start: '2026-08-01', end: '2026-08-01', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  // Roastry (Tyron)
+  { id: 'sp34', cpaId: 'cpa-silo', name: 'Wholesale Single Origin – Roasting & Packaging', category: 'Product Launches', lead: 'Tyron Bester', start: '2026-06-15', end: '2026-06-15', status: 'Completed', done: true, priority: 'High', notes: '' },
+  { id: 'sp35', cpaId: 'cpa-silo', name: 'Wholesale Single Origin – Delivery to Stores',   category: 'Product Launches', lead: 'Tyron Bester', start: '2026-06-26', end: '2026-06-26', status: 'Completed', done: true, priority: 'High', notes: '' },
+  { id: 'sp36', cpaId: 'cpa-silo', name: 'Wholesale Single Origin – Launch',                category: 'Product Launches', lead: 'Tyron Bester', start: '2026-07-01', end: '2026-07-01', status: 'Not Started', done: false, priority: 'High', notes: '' },
+  { id: 'sp37', cpaId: 'cpa-silo', name: 'Coffee Price Updates',                            category: 'Operations & Training', lead: 'Tyron Bester', start: '2026-08-01', end: '2026-08-01', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  // Bakery (Linc)
+  { id: 'sp38', cpaId: 'cpa-silo', name: 'Blueberry Muffin & Bran Muffin Launch',  category: 'Product Launches', lead: 'Linc', start: '2026-06-30', end: '2026-06-30', status: 'Completed',   done: true,  priority: 'Medium', notes: '' },
+  { id: 'sp39', cpaId: 'cpa-silo', name: 'Snack Pies – KZN & Gauteng',              category: 'Product Launches', lead: 'Linc', start: '2026-08-01', end: '2026-08-01', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp40', cpaId: 'cpa-silo', name: 'Price Amendment on Cakes',                category: 'Operations & Training', lead: 'Linc', start: '2026-08-01', end: '2026-08-01', status: 'Not Started', done: false, priority: 'Low',    notes: '' },
+  // Products SSP (Claire)
+  { id: 'sp41', cpaId: 'cpa-silo', name: 'Iced Coffee Cans – All Variants',                 category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-07-18', end: '2026-07-18', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp42', cpaId: 'cpa-silo', name: 'Iced Coffee Cans – Ou Meul Rollout',              category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-08-01', end: '2026-08-01', status: 'Not Started', done: false, priority: 'High',   notes: 'Ou Meul' },
+  { id: 'sp43', cpaId: 'cpa-silo', name: 'Mini Snack Pies Trial',                           category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-06-22', end: '2026-07-06', status: 'In Progress', done: false, priority: 'Medium', notes: 'CW, Kenilworth, Pineworx XS, Foreshore XS' },
+  { id: 'sp44', cpaId: 'cpa-silo', name: 'Mini Snack Pies National Launch',                 category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-07-31', end: '2026-07-31', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp45', cpaId: 'cpa-silo', name: 'New Flapjacks Trial',                             category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-06-25', end: '2026-07-09', status: 'Not Started', done: false, priority: 'Medium', notes: 'Ndabeni, CW, Kenilworth' },
+  { id: 'sp46', cpaId: 'cpa-silo', name: 'Adjusted Flapjack Recipe – National Launch',      category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-07-23', end: '2026-07-23', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp47', cpaId: 'cpa-silo', name: 'Brand Standards Workshops (CPT)',                 category: 'Operations & Training', lead: 'Claire Shapiro', start: '2026-08-08', end: '2026-08-08', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp48', cpaId: 'cpa-silo', name: 'Brand Standards Workshops (JHB)',                 category: 'Operations & Training', lead: 'Claire Shapiro', start: '2026-08-15', end: '2026-08-15', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp49', cpaId: 'cpa-silo', name: '120g Baguettes Trial (Ndabeni)',                  category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-08-19', end: '2026-09-03', status: 'Not Started', done: false, priority: 'Low',    notes: '' },
+  { id: 'sp50', cpaId: 'cpa-silo', name: 'Perfect Ted Matcha Trial',                        category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-08-26', end: '2026-08-26', status: 'Not Started', done: false, priority: 'Medium', notes: 'Ndabeni, Greenpoint, Harrington, KW' },
+  { id: 'sp51', cpaId: 'cpa-silo', name: 'ReBar Protein Bars Trial',                        category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-09-22', end: '2026-10-22', status: 'Not Started', done: false, priority: 'Medium', notes: 'Ndabeni, Bridgewater, Foreshore, Muizenberg' },
+  { id: 'sp52', cpaId: 'cpa-silo', name: 'Summer Menu Launch',                              category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-09-22', end: '2026-09-22', status: 'Not Started', done: false, priority: 'High',   notes: '' },
+  { id: 'sp53', cpaId: 'cpa-silo', name: 'Babylonstoren Blood Orange (Corporate Stores)',   category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-10-01', end: '2026-10-31', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'sp54', cpaId: 'cpa-silo', name: 'Single Origin Trial',                             category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-10-01', end: '2026-10-01', status: 'Not Started', done: false, priority: 'High',   notes: 'Ndabeni, Bree, CW, Harrington, Muizenberg, Cape Gate, PineW, Foreshore' },
+  { id: 'sp55', cpaId: 'cpa-silo', name: 'Heritage Day Burger',                             category: 'Marketing Campaigns & Events', lead: 'Claire Shapiro', start: '2026-09-01', end: '2026-09-24', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  // HR (Luna)
+  { id: 'sp56', cpaId: 'cpa-silo', name: 'ESS Employee Self Service',       category: 'HR & Culture',       lead: 'Luna',              start: '2026-06-26', end: '2026-06-26', status: 'In Progress', done: false, priority: 'High',   notes: '' },
+  { id: 'sp57', cpaId: 'cpa-silo', name: 'Employee Code Change',            category: 'HR & Culture',       lead: 'Luna',              start: '2026-06-26', end: '2026-06-26', status: 'In Progress', done: false, priority: 'High',   notes: '' },
+  { id: 'sp58', cpaId: 'cpa-silo', name: 'The Silo Group Culture Blueprint', category: 'HR & Culture',      lead: 'Luna',              start: '2026-06-01', end: '2026-12-31', status: 'In Progress', done: false, priority: 'High',   notes: 'Ongoing strategic initiative' },
+  // Finance (Grant / Johanette)
+  { id: 'sp59', cpaId: 'cpa-silo', name: 'JEM Phase 1 & 2',                 category: 'Finance & Systems',  lead: 'Grant / Johanette', start: '2026-06-26', end: '2026-06-27', status: 'In Progress', done: false, priority: 'High',   notes: '' },
+  { id: 'sp60', cpaId: 'cpa-silo', name: 'Paper Trail – Creditors Phase 1 & 2', category: 'Finance & Systems', lead: 'Grant / Johanette', start: '2026-06-26', end: '2026-06-27', status: 'In Progress', done: false, priority: 'High', notes: '' },
+  { id: 'sp61', cpaId: 'cpa-silo', name: 'Paper Trail – HR Group Onboarding', category: 'Finance & Systems', lead: 'Grant / Johanette', start: '2026-06-26', end: '2026-06-27', status: 'In Progress', done: false, priority: 'High', notes: '' },
+  { id: 'sp62', cpaId: 'cpa-silo', name: 'Sage X3',                          category: 'Finance & Systems',  lead: 'Grant / Johanette', start: '2026-11-01', end: '2026-11-30', status: 'Not Started', done: false, priority: 'High',   notes: 'Nov implementation' },
+  // Operational (Herschel / SSP)
+  { id: 'sp63', cpaId: 'cpa-silo', name: 'Integrated Speedpints Trial',      category: 'Operations & Training', lead: 'SSP',           start: '2026-06-15', end: '2026-06-30', status: 'Completed',   done: true,  priority: 'Medium', notes: '' },
+  { id: 'sp64', cpaId: 'cpa-silo', name: 'Roastering System JEM Build',      category: 'Finance & Systems',  lead: 'Herschel',          start: '2026-06-23', end: '2026-07-16', status: 'In Progress', done: false, priority: 'High',   notes: 'Finalisation' },
+  { id: 'sp65', cpaId: 'cpa-silo', name: 'GAAP Rollout',                      category: 'Finance & Systems',  lead: 'SSP',               start: '2026-08-01', end: '2026-12-31', status: 'Not Started', done: false, priority: 'High',   notes: 'Through to Dec 2026' },
+
+  // Brand Direction CPA
+  { id: 'a1', cpaId: 'cpa-brand', name: 'Cup Design Competition', category: 'Marketing Campaigns & Events', lead: 'Miguel Netto', start: '2026-06-01', end: '2026-06-24', status: 'Completed', done: true, priority: 'High', notes: '' },
+  { id: 'a2', cpaId: 'cpa-brand', name: 'UTCT Partner Workshop', category: 'Operations & Training', lead: 'Miguel Netto', start: '2026-06-10', end: '2026-06-18', status: 'Completed', done: true, priority: 'Medium', notes: '' },
+  { id: 'a3', cpaId: 'cpa-brand', name: 'Brand Story Video (Pieter)', category: 'Brand & Creative', lead: 'Miguel Netto', start: '2026-06-03', end: '2026-06-24', status: 'In Progress', done: false, priority: 'High', notes: 'Shoot with Bern on 3rd, go live 24th' },
+  { id: 'a4', cpaId: 'cpa-brand', name: 'Community Compost Project', category: 'Strategic Projects', lead: 'Miguel Netto', start: '2026-07-01', end: '2026-07-31', status: 'Not Started', done: false, priority: 'Low', notes: 'July: TBC' },
+  { id: 'a5', cpaId: 'cpa-brand', name: 'Ciovita x Bootlegger Cycling Collab', category: 'Collaborations & Partnerships', lead: 'Miguel Netto', start: '2026-06-01', end: '2026-06-27', status: 'In Progress', done: false, priority: 'High', notes: 'Jersey production, shoot 22nd, launch online 27th' },
+  { id: 'a6', cpaId: 'cpa-brand', name: 'Kiddies Proposition Phase 1', category: 'Strategic Projects', lead: 'Miguel Netto', start: '2026-06-01', end: '2026-06-30', status: 'In Progress', done: false, priority: 'High', notes: 'Launch 30 June' },
+  // Marketing CPA
+  { id: 'b1', cpaId: 'cpa-marketing', name: 'Mini Snack Pies Trial', category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-06-22', end: '2026-07-15', status: 'In Progress', done: false, priority: 'Medium', notes: 'Canal Walk, Kenilworth, Pineworx & Foreshore' },
+  { id: 'b2', cpaId: 'cpa-marketing', name: 'New Flapjacks Trial', category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-06-25', end: '2026-07-10', status: 'Not Started', done: false, priority: 'Medium', notes: 'Ndabeni, Canal Walk, Kenilworth' },
+  { id: 'b3', cpaId: 'cpa-marketing', name: 'Iced Coffee Can Launch', category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-07-16', end: '2026-07-31', status: 'Not Started', done: false, priority: 'High', notes: '' },
+  { id: 'b4', cpaId: 'cpa-marketing', name: 'Heritage Day Burger', category: 'Marketing Campaigns & Events', lead: 'Claire Shapiro', start: '2026-09-01', end: '2026-09-24', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'b5', cpaId: 'cpa-marketing', name: 'Summer Menu 2026', category: 'Product Launches', lead: 'Claire Shapiro', start: '2026-09-22', end: '2026-10-15', status: 'Not Started', done: false, priority: 'High', notes: '' },
+  // Operations CPA
+  { id: 'c1', cpaId: 'cpa-ops', name: 'SACSC Conference (Durban ICC)', category: 'Operations & Training', lead: 'Shakirah Dramat', start: '2026-09-19', end: '2026-09-21', status: 'Not Started', done: false, priority: 'High', notes: 'A Team & 2 bars' },
+  { id: 'c2', cpaId: 'cpa-ops', name: 'Coffee Fest Pretoria', category: 'Marketing Campaigns & Events', lead: 'Shakirah Dramat', start: '2026-10-01', end: '2026-10-05', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  // Store Openings CPA
+  { id: 'd1', cpaId: 'cpa-openings', name: 'Steiltes TEMSA XS (MP)', category: 'Store Openings', lead: 'Jonty Adams', start: '2026-06-25', end: '2026-06-25', status: 'Completed', done: true, priority: 'High', notes: '' },
+  { id: 'd2', cpaId: 'cpa-openings', name: 'The Pearls (KZN)', category: 'Store Openings', lead: 'Jonty Adams', start: '2026-07-03', end: '2026-07-10', status: 'In Progress', done: false, priority: 'High', notes: 'TBC' },
+  { id: 'd3', cpaId: 'cpa-openings', name: 'Woodmead XS (GP)', category: 'Store Openings', lead: 'Jonty Adams', start: '2026-07-15', end: '2026-07-22', status: 'Not Started', done: false, priority: 'High', notes: '' },
+  { id: 'd4', cpaId: 'cpa-openings', name: 'Parkhurst (GP) - 3 Phase Upgrade', category: 'Store Revamps', lead: 'Jonty Adams', start: '2026-07-23', end: '2026-07-30', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'd5', cpaId: 'cpa-openings', name: 'Walmer Park Opening', category: 'Store Openings', lead: 'Jonty Adams', start: '2026-07-30', end: '2026-08-06', status: 'Not Started', done: false, priority: 'High', notes: '' },
+  { id: 'd6', cpaId: 'cpa-openings', name: 'Aquarium Revamp (Store & Kiosk)', category: 'Store Revamps', lead: 'Jonty Adams', start: '2026-06-25', end: '2026-06-26', status: 'In Progress', done: false, priority: 'High', notes: '2 parts – store & kiosk' },
+  { id: 'd7', cpaId: 'cpa-openings', name: 'Green Point Revamp', category: 'Store Revamps', lead: 'Jonty Adams', start: '2026-07-15', end: '2026-07-07', status: 'Not Started', done: false, priority: 'Medium', notes: '' },
+  { id: 'd8', cpaId: 'cpa-openings', name: 'Newlands Ou Meul Opening', category: 'Store Openings', lead: 'Jonty Adams', start: '2026-07-06', end: '2026-07-14', status: 'Not Started', done: false, priority: 'High', notes: '' },
+];
+
+let currentFilter = { status: 'all', category: '', search: '', cpaId: null };
+let currentView = 'card';
+let currentCPA = null;
+let editingId = null;
+let collapsedCats = new Set(); // persists across gantt re-renders
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+
+function init() {
+  // Show admin sidebar link for admins
+  if (isAdmin()) {
+    document.getElementById('adminSidebarSection').style.display = 'block';
+  }
+  // If user has no access at all, show a message
+  if (currentUserRole === 'none') {
+    document.getElementById('dashboardView').innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:16px;color:var(--navy-600)">
+        <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="color:var(--navy-300)">
+          <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+        <div style="font-size:17px;font-weight:700;color:var(--navy-800)">Access pending</div>
+        <div style="font-size:13px;color:var(--navy-500);text-align:center;max-width:340px">
+          You're signed in as <strong>${currentUser?.username}</strong> but haven't been granted access yet.<br>
+          Ask your admin to add you in User Management.
+        </div>
+      </div>`;
+    return;
+  }
+  renderSidebar();
+  renderStats();
+  renderCategoryFilter();
+  renderGrid();
+  populateModal();
+  document.getElementById('totalCPABadge').textContent = cpas.length;
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────────────────────────
+
+function renderSidebar() {
+  const el = document.getElementById('teamList');
+  const teams = [...new Set(cpas.map(c => c.team))];
+  el.innerHTML = teams.map(team => {
+    const count = cpas.filter(c => c.team === team).length;
+    const color = TEAMS.find(t => t.name === team)?.color || '#1a3557';
+    return `
+      <div class="sidebar-item" onclick="filterByTeam('${team}', this)">
+        <div class="dot" style="background:${color}"></div>
+        ${team}
+        <span class="sidebar-badge">${count}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function showDashboard(el) {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  currentFilter.cpaId = null;
+  currentFilter.status = 'all';
+  currentCPA = null;
+  document.getElementById('viewTitle').textContent = 'All CPAs';
+  document.getElementById('viewSubtitle').textContent = 'Showing all teams and activities';
+  document.querySelectorAll('.filter-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+  document.getElementById('dashboardView').style.display = '';
+  document.getElementById('detailView').style.display = 'none';
+  renderStats();
+  renderGrid();
+}
+
+function filterByTeam(team, el) {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  currentFilter.cpaId = null;
+  currentCPA = null;
+  document.getElementById('viewTitle').textContent = team;
+  document.getElementById('viewSubtitle').textContent = `${cpas.filter(c => c.team === team).length} CPA(s) for this team`;
+  document.getElementById('dashboardView').style.display = '';
+  document.getElementById('detailView').style.display = 'none';
+  renderStats(team);
+  renderGrid(team);
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────────────
+
+function renderStats(teamFilter) {
+  const relevantCPAs = teamFilter ? cpas.filter(c => c.team === teamFilter) : cpas;
+  const relevantIds = relevantCPAs.map(c => c.id);
+  const acts = activities.filter(a => relevantIds.includes(a.cpaId));
+  const done = acts.filter(a => a.done).length;
+  const pct = acts.length ? Math.round((done / acts.length) * 100) : 0;
+  const inProgress = acts.filter(a => a.status === 'In Progress' && !a.done).length;
+
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card gold-top">
+      <div class="stat-label">Total CPAs</div>
+      <div class="stat-value">${relevantCPAs.length}</div>
+      <div class="stat-sub">${teamFilter || 'Across all teams'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Activities</div>
+      <div class="stat-value">${acts.length}</div>
+      <div class="stat-sub">Across all CPAs</div>
+    </div>
+    <div class="stat-card green-top">
+      <div class="stat-label">Completed</div>
+      <div class="stat-value">${done}</div>
+      <div class="stat-sub">${pct}% of all activities</div>
+    </div>
+    <div class="stat-card warn-top">
+      <div class="stat-label">In Progress</div>
+      <div class="stat-value">${inProgress}</div>
+      <div class="stat-sub">Currently active</div>
+    </div>
+  `;
+}
+
+// ── CATEGORY FILTER ───────────────────────────────────────────────────────────
+
+function renderCategoryFilter() {
+  const sel = document.getElementById('categoryFilter');
+  sel.innerHTML = '<option value="">All Categories</option>' +
+    CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
+function applyFilters() {
+  currentFilter.category = document.getElementById('categoryFilter').value;
+  renderGrid();
+}
+
+// ── GRID / CARD VIEW ──────────────────────────────────────────────────────────
+
+function renderGrid(teamFilter) {
+  let filtered = teamFilter ? cpas.filter(c => c.team === teamFilter) : cpas;
+  if (currentFilter.search) {
+    const q = currentFilter.search.toLowerCase();
+    filtered = filtered.filter(c =>
+      c.title.toLowerCase().includes(q) || c.team.toLowerCase().includes(q) || c.lead.toLowerCase().includes(q)
+    );
+  }
+
+  const grid = document.getElementById('cpaGrid');
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"/>
+      </svg>
+      <h3>No CPAs found</h3>
+      <p>Try adjusting your search or filters</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(cpa => {
+    const acts = activities.filter(a => a.cpaId === cpa.id);
+    const done = acts.filter(a => a.done).length;
+    const pct = acts.length ? Math.round((done / acts.length) * 100) : 0;
+    const statusClass = {
+      'On Track': 'on-track',
+      'In Progress': 'in-progress',
+      'Behind': 'behind',
+      'Not Started': 'not-started',
+      'Completed': 'on-track',
+    }[cpa.status] || 'not-started';
+
+    return `
+      <div class="cpa-card" onclick="openCPADetail('${cpa.id}')">
+        <div class="cpa-card-header">
+          <h3>${cpa.title}</h3>
+          <span class="team-badge">${cpa.team}</span>
+        </div>
+        <div class="cpa-card-body">
+          <div class="progress-section">
+            <div class="progress-label">
+              <span>Completion</span>
+              <span><strong>${done}</strong> / ${acts.length} activities</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${pct}%"></div>
+            </div>
+          </div>
+          <div class="cpa-meta">
+            <span>
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              ${cpa.lead}
+            </span>
+            <span>
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+              ${cpa.period}
+            </span>
+          </div>
+        </div>
+        <div class="cpa-card-footer">
+          <span class="status-pill ${statusClass}">${cpa.status}</span>
+          ${cpa.sharePointUrl ? `<a href="${cpa.sharePointUrl}" target="_blank" onclick="event.stopPropagation()" class="btn btn-ghost btn-sm" style="font-size:11.5px;padding:4px 10px;color:#1e3a5f;border-color:#e2e8f0;background:#f4f7fa">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            SharePoint
+          </a>` : '<span style="font-size:11.5px;color:#94a3b8">' + pct + '% complete</span>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  renderTableView(filtered);
+}
+
+// ── TABLE VIEW ────────────────────────────────────────────────────────────────
+
+function renderTableView(filteredCPAs) {
+  const ids = (filteredCPAs || cpas).map(c => c.id);
+  let acts = activities.filter(a => ids.includes(a.cpaId));
+
+  if (currentFilter.status !== 'all') {
+    acts = acts.filter(a => a.status === currentFilter.status || (currentFilter.status === 'Completed' && a.done));
+  }
+  if (currentFilter.category) {
+    acts = acts.filter(a => a.category === currentFilter.category);
+  }
+  if (currentFilter.search) {
+    const q = currentFilter.search.toLowerCase();
+    acts = acts.filter(a => a.name.toLowerCase().includes(q) || a.lead.toLowerCase().includes(q));
+  }
+
+  const tbody = document.getElementById('tableBody');
+  if (!acts.length) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><h3>No activities found</h3><p>Adjust your filters or add a new activity</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = acts.map(a => {
+    const cpa = cpas.find(c => c.id === a.cpaId);
+    const statusClass = { 'On Track': 'on-track', 'In Progress': 'in-progress', 'Behind': 'behind', 'Not Started': 'not-started', 'Completed': 'on-track' }[a.status] || 'not-started';
+    const displayStatus = a.done ? 'Completed' : a.status;
+    return `
+      <tr style="${a.done ? 'opacity:0.6' : ''}">
+        <td class="checkbox-cell">
+          <input type="checkbox" ${a.done ? 'checked' : ''} onchange="toggleDone('${a.id}', this.checked)">
+        </td>
+        <td><strong style="${a.done ? 'text-decoration:line-through' : ''}">${a.name}</strong></td>
+        <td><span class="category-tag">${a.category}</span></td>
+        <td><span style="font-size:12.5px;color:#475569">${cpa?.title || ''}</span></td>
+        <td class="tl-name">${a.lead}</td>
+        <td class="date-range">${formatDate(a.start)}${a.end && a.end !== a.start ? ' → ' + formatDate(a.end) : ''}</td>
+        <td><span class="status-pill ${statusClass}">${displayStatus}</span></td>
+        <td>
+          <div class="row-actions">
+            ${canEdit(a.cpaId) ? `
+            <button class="icon-btn" onclick="editActivity('${a.id}')" title="Edit">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+            </button>
+            <button class="icon-btn" onclick="deleteActivity('${a.id}')" title="Delete" style="color:#ef4444">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>` : ''}
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ── DETAIL VIEW ───────────────────────────────────────────────────────────────
+
+async function openCPADetail(cpaId) {
+  currentCPA = cpas.find(c => c.id === cpaId);
+  if (!currentCPA) return;
+
+  if (isConfigured() && spListIds[cpaId]) {
+    await loadActivitiesFromSP(cpaId);
+  }
+
+  document.getElementById('dashboardView').style.display = 'none';
+  document.getElementById('detailView').style.display = 'flex';
+
+  const acts = activities.filter(a => a.cpaId === cpaId);
+  const done = acts.filter(a => a.done).length;
+  const pct = acts.length ? Math.round((done / acts.length) * 100) : 0;
+  const inProgress = acts.filter(a => a.status === 'In Progress' && !a.done).length;
+
+  // Header
+  const _now = new Date();
+  const _days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const _mons = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('detailTitle').textContent = currentCPA.title;
+  document.getElementById('detailDate').textContent =
+    `${_days[_now.getDay()]}, ${_now.getDate()} ${_mons[_now.getMonth()]} ${_now.getFullYear()}`;
+
+  // Stats
+  const _today = new Date(); _today.setHours(0,0,0,0);
+  const _ws = new Date(_today); _ws.setDate(_today.getDate() - (_today.getDay()||7) + 1);
+  const _we = new Date(_ws); _we.setDate(_ws.getDate() + 6);
+  const _overdue  = acts.filter(a => !a.done && a.end   && new Date(a.end+'T00:00:00') < _today).length;
+  const _thisWeek = acts.filter(a => !a.done && (
+    (a.start && new Date(a.start+'T00:00:00') >= _ws && new Date(a.start+'T00:00:00') <= _we) ||
+    (a.end   && new Date(a.end+'T00:00:00')   >= _ws && new Date(a.end+'T00:00:00')   <= _we)
+  )).length;
+  const _blocked  = acts.filter(a => !a.done && a.status === 'Behind').length;
+  const _done     = acts.filter(a => a.done).length;
+
+  document.getElementById('detailStats').innerHTML = [
+    {v:_overdue,  l:'OVERDUE',   c:'#ef4444'},
+    {v:_thisWeek, l:'THIS WEEK', c:'#f59e0b'},
+    {v:_blocked,  l:'BLOCKED',   c:'#ef4444'},
+    {v:_done,     l:'DONE',      c:'#c9a84c'},
+  ].map(s=>`
+    <div style="padding:14px 0;text-align:center">
+      <div style="font-size:30px;font-weight:800;color:${s.c};line-height:1">${s.v}</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-top:3px">${s.l}</div>
+    </div>`).join('');
+
+  // Category pills
+  window._activeCatFilter = '';
+  const cats = [...new Set(acts.map(a=>a.category).filter(Boolean))].sort();
+  document.getElementById('catPills').innerHTML = ['', ...cats].map((c,i)=>`
+    <button onclick="setCatFilter(${JSON.stringify(c)},this)"
+      style="padding:5px 14px;border-radius:20px;border:1.5px solid ${i===0?'var(--navy-800)':'var(--grey-200)'};
+      background:${i===0?'var(--navy-800)':'white'};color:${i===0?'white':'var(--navy-600)'};
+      font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap">
+      ${c===''?'All':c}
+    </button>`).join('');
+
+  window._currentDetailTab = 'board';
+  // Reset tab buttons
+  document.getElementById('tabBoard').style.cssText += ';background:white;color:var(--navy-800);border-bottom-color:var(--gold)';
+  document.getElementById('tabTimeline').style.cssText += ';background:transparent;color:rgba(255,255,255,0.55);border-bottom-color:transparent';
+
+  renderGantt();
+}
+
+function switchDetailTab(tab) {
+  window._currentDetailTab = tab;
+  const bBoard = document.getElementById('tabBoard');
+  const bTime  = document.getElementById('tabTimeline');
+  if (tab === 'board') {
+    bBoard.style.background='white'; bBoard.style.color='var(--navy-800)'; bBoard.style.borderBottomColor='var(--gold)';
+    bTime.style.background='transparent'; bTime.style.color='rgba(255,255,255,0.55)'; bTime.style.borderBottomColor='transparent';
+  } else {
+    bTime.style.background='white'; bTime.style.color='var(--navy-800)'; bTime.style.borderBottomColor='var(--gold)';
+    bBoard.style.background='transparent'; bBoard.style.color='rgba(255,255,255,0.55)'; bBoard.style.borderBottomColor='transparent';
+  }
+  renderGantt();
+}
+
+function setCatFilter(cat, btn) {
+  window._activeCatFilter = cat;
+  document.querySelectorAll('#catPills button').forEach(b=>{
+    b.style.background='white'; b.style.color='var(--navy-600)'; b.style.borderColor='var(--grey-200)';
+  });
+  btn.style.background='var(--navy-800)'; btn.style.color='white'; btn.style.borderColor='var(--navy-800)';
+  renderGantt();
+}
+
+function renderGantt() {
+  if (!currentCPA) return;
+
+  const tab = window._currentDetailTab || 'board';
+  const catFilter = window._activeCatFilter || '';
+
+  let acts = activities.filter(a => a.cpaId === currentCPA.id);
+  if (catFilter) acts = acts.filter(a => a.category === catFilter);
+
+  const container = document.getElementById('ganttContainer');
+
+  if (!acts.length) {
+    container.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:12px;color:var(--navy-400)">
+      <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"/></svg>
+      <div style="font-size:15px;font-weight:600">No activities yet</div>
+      <div style="font-size:13px">Click "+ New Item" to get started</div>
+    </div>`;
+    return;
+  }
+
+  // Timeline config
+  const TL_START = new Date('2026-06-01T00:00:00');
+  const WEEKS    = 31; // Jun 1 – Dec 31 ≈ 31 weeks
+  const COL_W    = 35; // px per week column
+  const LEFT1    = 280; // "LINE ITEM" column width
+  const LEFT2    = 200; // "COMMENTS / STATUS" column width
+
+  // Build week date array (Monday of each week)
+  const weekDates = [];
+  for (let i = 0; i < WEEKS; i++) {
+    const d = new Date(TL_START.getTime() + i * 7 * 86400000);
+    weekDates.push(d);
+  }
+
+  // Helper: which week index does a date fall in? (-1 if out of range)
+  function weekIdx(dateStr) {
+    if (!dateStr) return -1;
+    const d = new Date(dateStr + 'T00:00:00');
+    for (let i = 0; i < weekDates.length; i++) {
+      const wStart = weekDates[i];
+      const wEnd   = new Date(wStart.getTime() + 6 * 86400000);
+      if (d >= wStart && d <= wEnd) return i;
+    }
+    return -1;
+  }
+
+  // Helper: get day-of-month from date string
+  function dayOf(dateStr) {
+    return dateStr ? new Date(dateStr + 'T00:00:00').getDate() : '';
+  }
+
+  // Today marker column
+  const todayDate = new Date(); todayDate.setHours(0,0,0,0);
+  let todayWeekIdx = -1;
+  for (let i = 0; i < weekDates.length; i++) {
+    const wEnd = new Date(weekDates[i].getTime() + 6 * 86400000);
+    if (todayDate >= weekDates[i] && todayDate <= wEnd) { todayWeekIdx = i; break; }
+  }
+
+  // Month spans for header
+  const MONTH_SPANS = [
+    {n:'June',    days:30}, {n:'July',     days:31}, {n:'August',    days:31},
+    {n:'September',days:30},{n:'October',  days:31}, {n:'November',  days:30},
+    {n:'December',days:31}
+  ];
+
+  // Build month header cells (by counting which weeks fall in each month)
+  const monthCells = [];
+  let dayCount = 0;
+  for (const m of MONTH_SPANS) {
+    let cols = 0;
+    for (let i = 0; i < WEEKS; i++) {
+      const wDay = Math.floor((weekDates[i] - TL_START) / 86400000);
+      if (wDay >= dayCount && wDay < dayCount + m.days) cols++;
+    }
+    if (cols > 0) monthCells.push(`<th colspan="${cols}" style="padding:8px 4px;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--navy-600);border-right:1px solid var(--grey-200);border-bottom:1px solid var(--grey-200);background:var(--grey-100)">${m.n.toUpperCase()}</th>`);
+    dayCount += m.days;
+  }
+
+  // Week sub-header cells
+  const weekCells = weekDates.map((d, i) => {
+    const isTodayCol = i === todayWeekIdx;
+    return `<th style="width:${COL_W}px;min-width:${COL_W}px;padding:4px 0;text-align:center;font-size:9px;font-weight:600;color:${isTodayCol?'#ef4444':'var(--navy-400)'};border-right:1px solid var(--grey-200);border-bottom:2px solid var(--grey-200);background:${isTodayCol?'#fef2f2':'var(--grey-100)'}">${d.getDate()}</th>`;
+  }).join('');
+
+  // Group by category
+  const grouped = {};
+  acts.forEach(a => {
+    const cat = a.category || 'Uncategorised';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(a);
+  });
+
+  // ── BOARD VIEW (point markers) ──────────────────────────────────────────────
+  if (tab === 'board') {
+    let rowsHTML = '';
+
+    for (const [cat, catActs] of Object.entries(grouped)) {
+      // Category header row
+      rowsHTML += `
+        <tr>
+          <td colspan="2" style="padding:8px 16px;background:var(--navy-800);color:white;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;position:sticky;left:0;z-index:3">${cat}</td>
+          ${weekDates.map((_,i) => `<td style="background:var(--navy-900);border-right:1px solid rgba(255,255,255,0.05)"></td>`).join('')}
+        </tr>`;
+
+      catActs.forEach((a, rowIdx) => {
+        const bg = rowIdx % 2 === 0 ? 'white' : '#f9fafb';
+        const startWk = weekIdx(a.start);
+        const endWk   = weekIdx(a.end && a.end !== a.start ? a.end : null);
+        const sDay = dayOf(a.start);
+        const eDay = dayOf(a.end);
+
+        const statusColors = {
+          'Completed':'#22c55e','In Progress':'#f59e0b','On Track':'#3b82f6',
+          'Behind':'#ef4444','Not Started':'#94a3b8'
+        };
+        const sBadge = `<span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:${statusColors[a.status]||'#94a3b8'}22;color:${statusColors[a.status]||'#94a3b8'}">${a.status||'Not Started'}</span>`;
+
+        const notesCell = a.notes
+          ? `<div style="font-size:12px;color:var(--navy-600);line-height:1.3">${a.notes}</div>${a.lead?`<div style="font-size:11px;color:var(--navy-400);margin-top:2px">${a.lead}</div>`:''}`
+          : `${sBadge}${a.lead?`<div style="font-size:11px;color:var(--navy-400);margin-top:3px">${a.lead}</div>`:''}`;
+
+        const editBtns = canEdit(currentCPA.id)
+          ? `<span style="margin-left:auto;display:flex;gap:4px;opacity:0;transition:opacity 0.15s" class="row-actions">
+              <button onclick="editActivity('${a.id}')" style="background:none;border:none;cursor:pointer;color:var(--navy-400);font-size:13px;padding:2px 4px" title="Edit">✏️</button>
+              <button onclick="deleteActivity('${a.id}')" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:13px;padding:2px 4px" title="Delete">🗑</button>
+            </span>` : '';
+
+        const weekTds = weekDates.map((_, i) => {
+          const isTodayCol = i === todayWeekIdx;
+          let circles = '';
+          if (i === startWk && sDay) {
+            circles += `<div style="width:24px;height:24px;border-radius:50%;background:var(--navy-700);color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:auto;box-shadow:0 1px 3px rgba(0,0,0,0.2)">${sDay}</div>`;
+          }
+          if (i === endWk && eDay && endWk !== startWk) {
+            circles += `<div style="width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--navy-800);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:auto;margin-top:${startWk===endWk?'2px':'auto'};box-shadow:0 1px 3px rgba(0,0,0,0.2)">${eDay}</div>`;
+          }
+          // Same week, same day: show gold only
+          if (i === startWk && i === endWk && sDay && eDay && a.start !== a.end) {
+            circles = `<div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--navy-700);color:white;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center">${sDay}</div>
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--navy-800);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center">${eDay}</div>
+            </div>`;
+          }
+          // Single date (start only or start===end): gold circle
+          if (i === startWk && (!a.end || a.end === a.start) && sDay) {
+            circles = `<div style="width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--navy-800);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:auto;box-shadow:0 1px 3px rgba(0,0,0,0.2)">${sDay}</div>`;
+          }
+          return `<td style="padding:4px;text-align:center;border-right:1px solid var(--grey-200);vertical-align:middle;background:${isTodayCol?'#fef9ec':bg};min-width:${COL_W}px;width:${COL_W}px">${circles}</td>`;
+        }).join('');
+
+        rowsHTML += `
+          <tr style="background:${bg}" onmouseenter="this.querySelectorAll('.row-actions').forEach(e=>e.style.opacity='1')" onmouseleave="this.querySelectorAll('.row-actions').forEach(e=>e.style.opacity='0')">
+            <td style="padding:10px 16px;border-bottom:1px solid var(--grey-200);position:sticky;left:0;background:${bg};z-index:2;min-width:${LEFT1}px;max-width:${LEFT1}px">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:13px;font-weight:${a.done?'400':'600'};color:${a.done?'var(--navy-400)':'var(--navy-800)'};${a.done?'text-decoration:line-through':''};line-height:1.3">${a.name}</span>
+                ${editBtns}
+              </div>
+            </td>
+            <td style="padding:10px 16px;border-bottom:1px solid var(--grey-200);border-left:1px solid var(--grey-200);position:sticky;left:${LEFT1}px;background:${bg};z-index:2;min-width:${LEFT2}px;max-width:${LEFT2}px;vertical-align:top">
+              ${notesCell}
+            </td>
+            ${weekTds}
+          </tr>`;
+      });
+    }
+
+    container.innerHTML = `
+      <div style="overflow:auto;width:100%">
+        <table style="border-collapse:collapse;width:max-content;min-width:100%;font-size:13px;background:white">
+          <thead style="position:sticky;top:0;z-index:10">
+            <tr>
+              <th style="position:sticky;left:0;z-index:11;background:var(--grey-100);min-width:${LEFT1}px;width:${LEFT1}px;padding:8px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--navy-600);border-bottom:2px solid var(--grey-200);border-right:1px solid var(--grey-200)">LINE ITEM</th>
+              <th style="position:sticky;left:${LEFT1}px;z-index:11;background:var(--grey-100);min-width:${LEFT2}px;width:${LEFT2}px;padding:8px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--navy-600);border-bottom:2px solid var(--grey-200);border-right:2px solid var(--grey-300)">COMMENTS / STATUS</th>
+              ${monthCells.join('')}
+            </tr>
+            <tr>
+              <th style="position:sticky;left:0;z-index:11;background:var(--grey-100);border-bottom:1px solid var(--grey-200);border-right:1px solid var(--grey-200)"></th>
+              <th style="position:sticky;left:${LEFT1}px;z-index:11;background:var(--grey-100);border-bottom:1px solid var(--grey-200);border-right:2px solid var(--grey-300)"></th>
+              ${weekCells}
+            </tr>
+          </thead>
+          <tbody>${rowsHTML}</tbody>
+        </table>
+      </div>`;
+    return;
+  }
+
+  // ── TIMELINE VIEW (bar-based, existing style) ────────────────────────────────
+  const TL_END    = new Date('2026-12-31T00:00:00');
+  const DAY_PX    = 5;
+  const TOTAL_DAYS = Math.ceil((TL_END - TL_START) / 86400000) + 1;
+  const TL_PX     = TOTAL_DAYS * DAY_PX;
+
+  const MONTHS_TL = [
+    {n:'JUN',d:30},{n:'JUL',d:31},{n:'AUG',d:31},
+    {n:'SEP',d:30},{n:'OCT',d:31},{n:'NOV',d:30},{n:'DEC',d:31}
+  ];
+  let mOff = 0;
+  const monthDivs = MONTHS_TL.map(m => {
+    const w = m.d * DAY_PX;
+    const d = `<div style="position:absolute;left:${mOff}px;width:${w}px;height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:0.14em;border-right:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7)">${m.n}</div>`;
+    mOff += w; return d;
+  }).join('');
+
+  const weekDivsTL = [];
+  for (let d = 0; d < TOTAL_DAYS; d += 7) {
+    const dt = new Date(TL_START.getTime() + d * 86400000);
+    const label = dt.getDate() === 1 ? dt.toLocaleString('en-ZA',{month:'short'}).toUpperCase() : dt.getDate();
+    weekDivsTL.push(`<div style="position:absolute;left:${d*DAY_PX}px;width:${7*DAY_PX}px;height:100%;display:flex;align-items:center;justify-content:center;font-size:9.5px;color:rgba(255,255,255,0.45);border-right:1px solid rgba(255,255,255,0.07)">${label}</div>`);
+  }
+
+  const todayD = new Date(); todayD.setHours(0,0,0,0);
+  const todayOff = ((todayD - TL_START) / 86400000) * DAY_PX;
+  const todayLine = (todayOff >= 0 && todayOff <= TL_PX) ? `<div style="position:absolute;left:${todayOff}px;top:0;bottom:0;width:2px;background:#ef4444;opacity:0.65;z-index:4;pointer-events:none"></div>` : '';
+  const todayLbl  = (todayOff >= 0 && todayOff <= TL_PX) ? `<div style="position:absolute;left:${todayOff-14}px;top:2px;background:#ef4444;color:white;font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px;z-index:4;pointer-events:none">TODAY</div>` : '';
+
+  const CAT_COLORS = {
+    'Marketing Campaigns & Events':'#2d5080','Store Openings':'#1e3a5f',
+    'Store Revamps':'#3d6a9e','Product Launches':'#b8930a',
+    'Operations & Training':'#132847','Strategic Projects':'#4a7aaa',
+    'Collaborations & Partnerships':'#1a3557','Brand & Creative':'#5588a4',
+    'Finance & Systems':'#1b4f72','HR & Culture':'#2e4057','Other':'#7a8fa6',
+  };
+
+  let tlRows = '';
+  for (const [cat, catActs] of Object.entries(grouped)) {
+    const color = CAT_COLORS[cat] || '#2d5080';
+    tlRows += `<tr style="background:${color}18">
+      <td colspan="2" style="padding:7px 16px;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--navy-700);border-bottom:1px solid var(--grey-200)">${cat} <span style="font-weight:400;color:var(--grey-400)">${catActs.length} item${catActs.length!==1?'s':''}</span></td>
+      <td style="padding:0"><div style="width:${TL_PX}px;height:22px"></div></td>
+    </tr>`;
+
+    catActs.forEach(a => {
+      const noDate = !a.start;
+      const s = noDate ? null : new Date(a.start+'T00:00:00');
+      const e = noDate ? null : new Date((a.end||a.start)+'T00:00:00');
+      const barL = noDate ? 0 : Math.max(0,(s-TL_START)/86400000)*DAY_PX;
+      const barW = noDate ? 0 : Math.max(DAY_PX*3,((e-s)/86400000+1)*DAY_PX);
+
+      const n = a.name.toLowerCase()+' '+(a.notes||'').toLowerCase();
+      let bColor = '#1e40af';
+      if (a.done) bColor='#94a3b8';
+      else if (/trial|test|pilot/.test(n)) bColor='#b45309';
+      else if (/launch|go.?live|rollout/.test(n)) bColor='#15803d';
+      else if (/opening|opened|open/.test(n)) bColor='#15803d';
+      else if (/revamp|refresh|renovation/.test(n)) bColor='#0e7490';
+
+      const bBg = a.done
+        ? `repeating-linear-gradient(45deg,${bColor},${bColor} 4px,${bColor}99 4px,${bColor}99 8px)`
+        : `linear-gradient(135deg,${bColor}ee,${bColor}bb)`;
+
+      const tbcPill = noDate ? `<div style="position:absolute;left:12px;top:6px;background:#e2e8f0;color:#64748b;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;border:1px dashed #94a3b8">TBC</div>` : '';
+
+      const editBtns = canEdit(currentCPA.id)
+        ? `<button onclick="editActivity('${a.id}')" style="background:none;border:none;cursor:pointer;color:var(--navy-400);padding:2px">✏️</button>
+           <button onclick="deleteActivity('${a.id}')" style="background:none;border:none;cursor:pointer;color:var(--danger);padding:2px">🗑</button>` : '';
+
+      tlRows += `<tr style="border-bottom:1px solid var(--grey-200)">
+        <td style="padding:8px 16px;font-size:13px;font-weight:500;min-width:240px;max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.name}</td>
+        <td style="padding:8px 8px;font-size:12px;color:var(--navy-500);min-width:80px;white-space:nowrap">${a.lead||''}${editBtns}</td>
+        <td style="padding:0;position:relative">
+          <div style="position:relative;width:${TL_PX}px;height:40px;overflow:visible">
+            ${todayLine}
+            ${noDate ? tbcPill : `<div style="position:absolute;left:${barL}px;width:${barW}px;height:20px;top:10px;background:${bBg};border-radius:4px;cursor:pointer" onclick="editActivity('${a.id}')" title="${a.name}"></div>`}
+          </div>
+        </td>
+      </tr>`;
+    });
+  }
+
+  container.innerHTML = `
+    <div style="overflow:auto">
+      <table style="border-collapse:collapse;font-size:13px;background:white;width:max-content;min-width:100%">
+        <thead style="position:sticky;top:0;z-index:10">
+          <tr>
+            <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--navy-600);background:var(--navy-900);min-width:240px;border-right:1px solid var(--navy-600)">LINE ITEM</th>
+            <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--navy-600);background:var(--navy-900);min-width:80px;border-right:1px solid var(--navy-600)">LEAD</th>
+            <th style="padding:0;background:var(--navy-900)">
+              <div style="position:relative;width:${TL_PX}px;height:38px;overflow:hidden">
+                ${todayLbl}${monthDivs}
+              </div>
+              <div style="position:relative;width:${TL_PX}px;height:22px;overflow:hidden;border-top:1px solid rgba(255,255,255,0.08)">
+                ${weekDivsTL.join('')}
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>${tlRows}</tbody>
+      </table>
+    </div>`;
+}
+
+function goBack() {
+  currentCPA = null;
+  document.getElementById('detailView').style.display = 'none';
+  document.getElementById('dashboardView').style.display = '';
+}
+
+// ── FILTERS & SEARCH ──────────────────────────────────────────────────────────
+
+function setStatusFilter(status, el) {
+  currentFilter.status = status;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderGrid();
+}
+
+let _searchTimer = null;
+function handleGlobalSearch(val) {
+  currentFilter.search = val;
+  clearTimeout(_searchTimer);
+  if (!val.trim()) {
+    // Clear search — go back to dashboard
+    document.getElementById('globalSearchView').style.display = 'none';
+    document.getElementById('dashboardView').style.display = '';
+    return;
+  }
+  // Show search view immediately with loading state
+  document.getElementById('dashboardView').style.display = 'none';
+  document.getElementById('adminView').style.display = 'none';
+  document.getElementById('globalSearchView').style.display = '';
+  document.getElementById('searchResultSubtitle').textContent = 'Loading all CPAs…';
+  document.getElementById('searchResultCount').textContent = '';
+  document.getElementById('searchResultsBody').innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;color:var(--navy-400);font-size:13px;padding:20px 0">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite">
+        <path d="M21 12a9 9 0 11-6.219-8.56"/>
+      </svg>
+      Loading activities from SharePoint…
+    </div>`;
+  // Debounce so we don't fire on every keystroke
+  _searchTimer = setTimeout(() => runGlobalSearch(val), 400);
+}
+
+async function runGlobalSearch(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) return;
+
+  // Load all CPAs from SharePoint that haven't been loaded yet
+  const loadPromises = cpas.map(cpa => loadActivitiesFromSP(cpa.id));
+  await Promise.allSettled(loadPromises);
+
+  // Search across all activities
+  const matches = activities.filter(a => {
+    return (
+      a.name.toLowerCase().includes(q) ||
+      a.category.toLowerCase().includes(q) ||
+      a.lead.toLowerCase().includes(q) ||
+      (a.notes || '').toLowerCase().includes(q)
+    );
+  });
+
+  // Group by CPA
+  const grouped = {};
+  for (const a of matches) {
+    if (!grouped[a.cpaId]) grouped[a.cpaId] = [];
+    grouped[a.cpaId].push(a);
+  }
+
+  const cpaMap = Object.fromEntries(cpas.map(c => [c.id, c]));
+
+  const statusColour = {
+    'Completed':   '#22c55e',
+    'In Progress': '#f59e0b',
+    'Not Started': '#94a3b8',
+    'Behind':      '#ef4444',
+    'On Track':    '#3b82f6',
+  };
+
+  function highlight(text) {
+    if (!text) return '';
+    const idx = text.toLowerCase().indexOf(q);
+    if (idx === -1) return text;
+    return text.substring(0, idx) +
+      `<mark style="background:rgba(201,168,76,0.3);border-radius:2px;padding:0 1px">${text.substring(idx, idx + q.length)}</mark>` +
+      text.substring(idx + q.length);
+  }
+
+  const count = matches.length;
+  document.getElementById('searchResultCount').textContent = count === 0 ? 'No results' : `${count} result${count !== 1 ? 's' : ''}`;
+  document.getElementById('searchResultSubtitle').textContent = `Across all ${cpas.length} CPAs for "${query.trim()}"`;
+
+  if (count === 0) {
+    document.getElementById('searchResultsBody').innerHTML = `
+      <div style="text-align:center;padding:60px 20px;color:var(--navy-400)">
+        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:0.4">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <div style="font-size:15px;font-weight:600;color:var(--navy-600)">Nothing found for "${query.trim()}"</div>
+        <div style="font-size:13px;margin-top:4px">Try a different name, category, or lead</div>
+      </div>`;
+    return;
+  }
+
+  let html = '';
+  for (const [cpaId, acts] of Object.entries(grouped)) {
+    const cpa = cpaMap[cpaId];
+    html += `
+      <div style="margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--gold)"></div>
+          <span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--navy-500)">${cpa?.title || cpaId}</span>
+          <span style="font-size:11px;color:var(--navy-400)">${acts.length} match${acts.length !== 1 ? 'es' : ''}</span>
+        </div>
+        <div style="background:white;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <thead>
+              <tr style="background:var(--grey-100);border-bottom:1px solid var(--grey-200)">
+                <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--navy-600);font-size:11px;text-transform:uppercase;letter-spacing:0.05em">Activity</th>
+                <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--navy-600);font-size:11px;text-transform:uppercase;letter-spacing:0.05em">Category</th>
+                <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--navy-600);font-size:11px;text-transform:uppercase;letter-spacing:0.05em">Lead</th>
+                <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--navy-600);font-size:11px;text-transform:uppercase;letter-spacing:0.05em">Date</th>
+                <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--navy-600);font-size:11px;text-transform:uppercase;letter-spacing:0.05em">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${acts.map((a, i) => `
+                <tr style="border-bottom:${i < acts.length - 1 ? '1px solid var(--grey-200)' : 'none'};cursor:pointer;transition:background 0.15s"
+                    onmouseover="this.style.background='var(--grey-100)'" onmouseout="this.style.background=''"
+                    onclick="openCPAFromSearch('${cpaId}')">
+                  <td style="padding:10px 14px;font-weight:500;color:var(--navy-800)">${highlight(a.name)}</td>
+                  <td style="padding:10px 14px;color:var(--navy-600)">${highlight(a.category)}</td>
+                  <td style="padding:10px 14px;color:var(--navy-600)">${highlight(a.lead)}</td>
+                  <td style="padding:10px 14px;color:var(--navy-600);white-space:nowrap">
+                    ${a.start ? formatDate(a.start) : ''}${a.end && a.end !== a.start ? ' – ' + formatDate(a.end) : ''}
+                  </td>
+                  <td style="padding:10px 14px">
+                    <span style="padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;background:${statusColour[a.status] || '#94a3b8'}22;color:${statusColour[a.status] || '#94a3b8'}">${a.status}</span>
+                  </td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+  document.getElementById('searchResultsBody').innerHTML = html;
+}
+
+function openCPAFromSearch(cpaId) {
+  // Clear search and open the CPA
+  document.getElementById('globalSearch').value = '';
+  currentFilter.search = '';
+  document.getElementById('globalSearchView').style.display = 'none';
+  document.getElementById('dashboardView').style.display = '';
+  openCPADetail(cpaId);
+}
+
+// ── VIEW TOGGLE ───────────────────────────────────────────────────────────────
+
+function setView(v) {
+  currentView = v;
+  const grid = document.getElementById('cpaGrid');
+  const table = document.getElementById('tableView');
+  if (v === 'card') {
+    grid.style.display = '';
+    table.style.display = 'none';
+    document.getElementById('cardViewBtn').classList.add('active');
+    document.getElementById('tableViewBtn').classList.remove('active');
+  } else {
+    grid.style.display = 'none';
+    table.style.display = '';
+    document.getElementById('cardViewBtn').classList.remove('active');
+    document.getElementById('tableViewBtn').classList.add('active');
+  }
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+
+function populateModal() {
+  const cpaSelect = document.getElementById('formCPA');
+  cpaSelect.innerHTML = cpas.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
+
+  const catSelect = document.getElementById('formCategory');
+  catSelect.innerHTML = CATEGORIES.map(c => `<option>${c}</option>`).join('');
+}
+
+function openModal(prefillCPAId) {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add New Activity';
+  document.getElementById('editId').value = '';
+  document.getElementById('formName').value = '';
+  document.getElementById('formLead').value = '';
+  document.getElementById('formStart').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('formEnd').value = '';
+  document.getElementById('formStatus').value = 'Not Started';
+  document.getElementById('formPriority').value = 'Medium';
+  document.getElementById('formNotes').value = '';
+  if (prefillCPAId || currentCPA) {
+    document.getElementById('formCPA').value = prefillCPAId || currentCPA.id;
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  editingId = null;
+}
+
+function editActivity(id) {
+  const a = activities.find(x => x.id === id);
+  if (!a) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Activity';
+  document.getElementById('editId').value = id;
+  document.getElementById('formName').value = a.name;
+  document.getElementById('formCPA').value = a.cpaId;
+  document.getElementById('formCategory').value = a.category;
+  document.getElementById('formLead').value = a.lead;
+  document.getElementById('formStart').value = a.start;
+  document.getElementById('formEnd').value = a.end;
+  document.getElementById('formStatus').value = a.status;
+  document.getElementById('formPriority').value = a.priority;
+  document.getElementById('formNotes').value = a.notes || '';
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+async function saveActivity() {
+  const name = document.getElementById('formName').value.trim();
+  if (!name) { alert('Please enter an activity name.'); return; }
+
+  const data = {
+    name,
+    cpaId:    document.getElementById('formCPA').value,
+    category: document.getElementById('formCategory').value,
+    lead:     document.getElementById('formLead').value,
+    start:    document.getElementById('formStart').value,
+    end:      document.getElementById('formEnd').value,
+    status:   document.getElementById('formStatus').value,
+    priority: document.getElementById('formPriority').value,
+    notes:    document.getElementById('formNotes').value,
+    done:     false,
+  };
+
+  let savedActivity;
+  if (editingId) {
+    const idx = activities.findIndex(a => a.id === editingId);
+    activities[idx] = { ...activities[idx], ...data };
+    savedActivity = activities[idx];
+    showToast('Activity updated');
+  } else {
+    const newAct = { id: 'a' + Date.now(), ...data };
+    activities.push(newAct);
+    savedActivity = newAct;
+    showToast('Activity added');
+  }
+
+  // Save to SharePoint
+  if (isConfigured() && spListIds[savedActivity.cpaId]) {
+    try {
+      await saveActivityToSP(savedActivity);
+    } catch(e) { /* error already toasted */ }
+  }
+
+  closeModal();
+  if (currentCPA) {
+    openCPADetail(currentCPA.id);
+  } else {
+    renderStats();
+    renderGrid();
+  }
+}
+
+// ── CRUD ──────────────────────────────────────────────────────────────────────
+
+function toggleCatGroup(catId) {
+  const rows = document.querySelectorAll(`[data-cat="${catId}"]`);
+  const chevron = document.getElementById('chev_' + catId);
+  if (collapsedCats.has(catId)) {
+    collapsedCats.delete(catId);
+    rows.forEach(r => r.style.display = '');
+    if (chevron) chevron.style.transform = 'rotate(0deg)';
+  } else {
+    collapsedCats.add(catId);
+    rows.forEach(r => r.style.display = 'none');
+    if (chevron) chevron.style.transform = 'rotate(-90deg)';
+  }
+}
+
+async function toggleDone(id, checked, isDetail) {
+  const a = activities.find(x => x.id === id);
+  if (!a) return;
+  a.done = checked;
+  if (checked) a.status = 'Completed';
+  else if (a.status === 'Completed') a.status = 'In Progress';
+
+  // Sync to SharePoint
+  if (isConfigured() && a.spItemId) {
+    saveActivityToSP(a).catch(e => console.error('SP toggleDone sync failed:', e));
+  }
+
+  showToast(checked ? 'Activity marked complete ✓' : 'Activity reopened');
+
+  if (isDetail && currentCPA) {
+    renderGantt();
+  } else {
+    renderStats();
+    renderGrid();
+  }
+}
+
+async function deleteActivity(id) {
+  if (!confirm('Delete this activity?')) return;
+  const activity = activities.find(a => a.id === id);
+  activities = activities.filter(a => a.id !== id);
+  showToast('Activity deleted');
+  if (activity && isConfigured()) {
+    await deleteActivityFromSP(activity);
+  }
+  if (currentCPA) openCPADetail(currentCPA.id);
+  else { renderStats(); renderGrid(); }
+}
+
+function addNewCPA() {
+  const name = prompt('New CPA name:');
+  if (!name) return;
+  const team = prompt('Team name:');
+  if (!team) return;
+  const lead = prompt('Team lead:');
+  const id = 'cpa-' + Date.now();
+  cpas.push({ id, title: name, team: team || 'General', teamId: id, lead: lead || '', period: '2026', status: 'Not Started', sharePointUrl: '' });
+  renderSidebar();
+  renderStats();
+  renderGrid();
+  populateModal();
+  document.getElementById('totalCPABadge').textContent = cpas.length;
+  showToast('New CPA added: ' + name);
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+
+function formatDate(d) {
+  if (!d) return 'TBC';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ── ADMIN PANEL ───────────────────────────────────────────────────────────────
+
+function showAdminPanel(el) {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('dashboardView').style.display = 'none';
+  document.getElementById('cpaDetailView') && (document.getElementById('cpaDetailView').style.display = 'none');
+  document.getElementById('adminView').style.display = 'block';
+  renderAdminPanel();
+}
+
+function toggleInviteCPAs() {
+  const role = document.getElementById('inviteRole').value;
+  document.getElementById('inviteCPAsSection').style.display = role === 'editor' ? 'block' : 'none';
+}
+
+function buildCPACheckboxes(containerId, selectedIds = []) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = cpas.map(c => `
+    <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--navy-700);cursor:pointer;padding:5px 10px;border:1px solid var(--grey-200);border-radius:8px;background:${selectedIds.includes(c.id)?'var(--navy-50)':'white'}">
+      <input type="checkbox" value="${c.id}" ${selectedIds.includes(c.id) ? 'checked' : ''}
+        style="accent-color:var(--navy-600)"
+        onchange="this.closest('label').style.background=this.checked?'var(--navy-50)':'white'">
+      ${c.title.replace(' CPA','').replace(' Weekly Project Update','')}
+    </label>
+  `).join('');
+}
+
+function getCheckedCPAs(containerId) {
+  return [...document.querySelectorAll(`#${containerId} input[type=checkbox]:checked`)].map(cb => cb.value);
+}
+
+async function inviteUser() {
+  const email = document.getElementById('inviteEmail').value.trim().toLowerCase();
+  const displayName = document.getElementById('inviteName').value.trim();
+  const role = document.getElementById('inviteRole').value;
+  const status = document.getElementById('inviteStatus');
+  if (!email) { status.textContent = '⚠️ Please enter an email'; status.style.color = '#ef4444'; return; }
+  const allowedCPAs = role === 'editor' ? getCheckedCPAs('inviteCPACheckboxes') : (role === 'admin' ? cpas.map(c => c.id) : []);
+  status.textContent = 'Adding…'; status.style.color = 'var(--navy-400)';
+  try {
+    await addUserToSP({ email, displayName: displayName || email, role, allowedCPAs });
+    document.getElementById('inviteEmail').value = '';
+    document.getElementById('inviteName').value = '';
+    document.getElementById('inviteRole').value = 'viewer';
+    document.getElementById('inviteCPAsSection').style.display = 'none';
+    status.textContent = '✅ User added! Send them the app link.';
+    status.style.color = '#16a34a';
+    renderUserList();
+  } catch(e) {
+    status.textContent = '⚠️ Failed: ' + (e.message || 'Unknown error');
+    status.style.color = '#ef4444';
+  }
+}
+
+async function renderAdminPanel() {
+  // Build invite checkboxes
+  buildCPACheckboxes('inviteCPACheckboxes', []);
+  // Set app link
+  const link = window.location.href.split('?')[0].split('#')[0];
+  const linkEl = document.getElementById('appLink');
+  if (linkEl) { linkEl.textContent = link; linkEl.href = link; }
+  await renderUserList();
+}
+
+async function renderUserList() {
+  const container = document.getElementById('userListTable');
+  container.innerHTML = '<div style="color:var(--grey-400);font-size:13px;padding:12px 0">Loading…</div>';
+  try {
+    const users = await loadAllUsers();
+    if (users.length === 0) {
+      container.innerHTML = '<div style="color:var(--grey-400);font-size:13px;padding:12px 0">No users yet.</div>';
+      return;
+    }
+    const cpaNames = Object.fromEntries(cpas.map(c => [c.id, c.title.replace(' CPA','').replace(' Weekly Project Update','')]));
+    container.innerHTML = `
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="font-size:11px;font-weight:700;color:var(--navy-500);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--grey-200)">
+            <th style="padding:8px 0;text-align:left">Name / Email</th>
+            <th style="padding:8px 0;text-align:left">Role</th>
+            <th style="padding:8px 0;text-align:left">Can edit</th>
+            <th style="padding:8px 0;text-align:right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${users.map(u => `
+          <tr style="border-bottom:1px solid var(--grey-100)" id="userrow_${u.spItemId}">
+            <td style="padding:10px 0">
+              <div style="font-weight:600;font-size:13px;color:var(--navy-800)">${u.displayName}</div>
+              <div style="font-size:11px;color:var(--navy-400)">${u.email}</div>
+            </td>
+            <td style="padding:10px 0">
+              <span style="padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;background:${u.role==='admin'?'#fef3c7':u.role==='editor'?'#dbeafe':'#f1f5f9'};color:${u.role==='admin'?'#92400e':u.role==='editor'?'#1e40af':'#475569'}">
+                ${u.role}
+              </span>
+            </td>
+            <td style="padding:10px 0;font-size:11px;color:var(--navy-600)">
+              ${u.role === 'admin' ? 'All CPAs' : u.role === 'viewer' ? 'View only' : u.allowedCPAs.map(id => cpaNames[id] || id).join(', ') || '—'}
+            </td>
+            <td style="padding:10px 0;text-align:right">
+              <button onclick="openEditUser('${u.spItemId}','${u.role}',${JSON.stringify(u.allowedCPAs)})" style="padding:4px 12px;border:1px solid var(--navy-200);border-radius:6px;font-size:11px;background:white;cursor:pointer;color:var(--navy-700);margin-right:4px">Edit</button>
+              <button onclick="removeUser('${u.spItemId}')" style="padding:4px 10px;border:1px solid #fca5a5;border-radius:6px;font-size:11px;background:white;cursor:pointer;color:#ef4444">Remove</button>
+            </td>
+          </tr>
+          <tr id="editrow_${u.spItemId}" style="display:none;background:var(--grey-100)">
+            <td colspan="4" style="padding:14px 16px">
+              <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
+                <div>
+                  <label style="font-size:11px;font-weight:600;color:var(--navy-600);display:block;margin-bottom:6px">Role</label>
+                  <select id="editrole_${u.spItemId}" onchange="toggleEditCPAs('${u.spItemId}')"
+                    style="padding:7px 10px;border:1px solid var(--grey-200);border-radius:8px;font-size:13px;background:white">
+                    <option value="viewer" ${u.role==='viewer'?'selected':''}>Viewer</option>
+                    <option value="editor" ${u.role==='editor'?'selected':''}>Editor</option>
+                    <option value="admin"  ${u.role==='admin' ?'selected':''}>Admin</option>
+                  </select>
+                </div>
+                <div id="editcpas_${u.spItemId}" style="display:${u.role==='editor'?'block':'none'}">
+                  <label style="font-size:11px;font-weight:600;color:var(--navy-600);display:block;margin-bottom:6px">Editable CPAs</label>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap" id="editcpacb_${u.spItemId}"></div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:flex-end;padding-top:22px">
+                  <button onclick="saveEditUser('${u.spItemId}')" class="btn btn-primary btn-sm">Save</button>
+                  <button onclick="cancelEditUser('${u.spItemId}')" class="btn btn-outline btn-sm">Cancel</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch(e) {
+    container.innerHTML = `<div style="color:#ef4444;font-size:13px">${e.message}</div>`;
+  }
+}
+
+function openEditUser(id, role, allowedCPAs) {
+  document.getElementById('editrow_' + id).style.display = '';
+  buildCPACheckboxes('editcpacb_' + id, allowedCPAs);
+  document.getElementById('editcpas_' + id).style.display = role === 'editor' ? 'block' : 'none';
+}
+function cancelEditUser(id) { document.getElementById('editrow_' + id).style.display = 'none'; }
+function toggleEditCPAs(id) {
+  const role = document.getElementById('editrole_' + id).value;
+  document.getElementById('editcpas_' + id).style.display = role === 'editor' ? 'block' : 'none';
+}
+async function saveEditUser(id) {
+  const role = document.getElementById('editrole_' + id).value;
+  const allowedCPAs = role === 'editor' ? getCheckedCPAs('editcpacb_' + id) : (role === 'admin' ? cpas.map(c => c.id) : []);
+  try {
+    await updateUserInSP(id, { role, allowedCPAs });
+    showToast('✅ Permissions updated');
+    await renderUserList();
+  } catch(e) { showToast('⚠️ Failed to update: ' + e.message); }
+}
+async function removeUser(id) {
+  if (!confirm('Remove this user? They will lose access to edit CPAs.')) return;
+  try {
+    await deleteUserFromSP(id);
+    showToast('User removed');
+    await renderUserList();
+  } catch(e) { showToast('⚠️ Failed to remove: ' + e.message); }
+}
+function copyAppLink() {
+  const link = window.location.href.split('?')[0].split('#')[0];
+  navigator.clipboard.writeText(link).then(() => showToast('✅ Link copied!'));
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+// Auth bypassed temporarily — load straight in as admin
+currentUser = { name: 'Tamaryn James', username: 'tamaryn@thesilogroup.co.za' };
+currentUserRole = 'admin';
+currentUserAllowedCPAs = Object.keys(CONFIG.lists);
+renderUserBadge();
+init();
+</script>
+</body>
+</html>
