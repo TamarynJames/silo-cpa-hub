@@ -2920,12 +2920,7 @@ function copyAppLink() {
 }
 
 // ── BOOT ──────────────────────────────────────────────────────────────────────
-// Auth bypassed temporarily — load straight in as admin
-currentUser = { name: 'Tamaryn James', username: 'tamaryn@thesilogroup.co.za' };
-currentUserRole = 'admin';
-currentUserAllowedCPAs = Object.keys(CONFIG.lists);
-renderUserBadge();
-init();
+initAuth();
 </script>
 </body>
 </html>
